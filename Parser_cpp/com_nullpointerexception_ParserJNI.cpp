@@ -337,7 +337,7 @@ JNIEXPORT jobject JNICALL Java_com_nullpointerexception_ParserJNI_readData(JNIEn
     jfieldID widthField = env->GetFieldID(caffDataClass, "image_width", "J");
     jfieldID heightField = env->GetFieldID(caffDataClass, "image_height", "J");
     jfieldID tagsField = env->GetFieldID(caffDataClass, "tags", "[Ljava/lang/String;");
-    jfieldID pixelsField = env->GetFieldID(caffDataClass, "pixels", "[B");
+    jfieldID pixelsField = env->GetFieldID(caffDataClass, "pixels", "[I");
     
     // Read CAFF file
     int array_length = env -> GetArrayLength(array);
@@ -375,10 +375,21 @@ JNIEXPORT jobject JNICALL Java_com_nullpointerexception_ParserJNI_readData(JNIEn
     
     //pixels
     std::vector<unsigned char> v = return_data.getRgb_pixels();
-    jbyteArray pixels_jbyteArray = env->NewByteArray((int)return_data.getRgb_pixels().size());
-    unsigned char* pixels = &v[0];
-    env->SetByteArrayRegion(pixels_jbyteArray, 0, (int)return_data.getRgb_pixels().size(), (jbyte*)pixels);
-    env->SetObjectField(newCaffData, pixelsField, pixels_jbyteArray);
+    std::vector<int> rgb(v.size() / 3);
+    
+    int j = 0;
+    for(int i = 0; i < v.size(); i+= 3) {
+        int c = v.at(i);
+        c = (c << 8) + v.at(i + 1);
+        c = (c << 8) + v.at(i + 2);
+        rgb[j] = c;
+        j++;
+    }
+    
+    int* pixels = &rgb[0];
+    jintArray pixels_jintArray = env->NewIntArray((jsize)v.size() / 3);
+    env->SetIntArrayRegion(pixels_jintArray, 0, (jsize)v.size() / 3, (jint*)pixels);
+    env->SetObjectField(newCaffData, pixelsField, pixels_jintArray);
     
     return newCaffData;
 }

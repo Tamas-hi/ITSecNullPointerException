@@ -6,5 +6,5 @@ public class CaffData {
     public long image_height;
     public String caption;
     public String[] tags;
-    public byte[] pixels;
+    public int[] pixels;
 }

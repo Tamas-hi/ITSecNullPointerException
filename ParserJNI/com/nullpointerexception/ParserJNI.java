@@ -29,21 +29,11 @@ public class ParserJNI {
             System.out.println(Arrays.toString(result.tags));
 
             BufferedImage image = new BufferedImage((int)result.image_width, (int)result.image_height, BufferedImage.TYPE_INT_RGB);
-            int[] rgb = new int[result.pixels.length / 3];
-
-            int c = 0;
-            for(int i = 0; i < result.pixels.length; i+=3) {
-                int k = result.pixels[i];
-                k = (k << 8) + result.pixels[i + 1];
-                k = (k << 8) + result.pixels[i + 2];
-                rgb[c] = k;
-                c++;
-            }
 
             int z = 0;
             for (int y = 0; y < (int)result.image_height; y++) {
                 for (int x = 0; x < (int)result.image_width; x++) {
-                    image.setRGB(x, y, rgb[z]);
+                    image.setRGB(x, y, result.pixels[z]);
                     z++;
                 }
             }
