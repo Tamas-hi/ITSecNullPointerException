@@ -12,27 +12,27 @@
 
 class CaffReturnData {
   private:
-    long width;
-    long height;
+    double width;
+    double height;
     std::string _caption;
     std::string _creator;
     std::vector<std::string> tags;
     std::vector<unsigned char> rgb_pixels;
     
   public:    
-    void setWidth(long l) {
+    void setWidth(double l) {
         width = l;
     }
     
-    long getWidth() {
+    double getWidth() {
         return width;
     }
     
-    void setHeight(long l) {
+    void setHeight(double l) {
         height = l;
     }
     
-    long getHeight() {
+    double getHeight() {
         return height;
     }
     
