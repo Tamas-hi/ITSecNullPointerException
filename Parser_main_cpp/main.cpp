@@ -341,11 +341,6 @@ int main(int argc, const char * argv[]) {
         std::vector<unsigned char> fileData(fileSize);
         caffFile.read((char*) &fileData[0], fileSize);
         
-        char* number = new char[8];
-        for (int i=0; i<8; ++i) {
-            number[i] = fileData.at(i+1);
-        }
-        
         CaffReturnData returndata = readBlocks(fileData);
         
         ofstream img("image.ppm");
