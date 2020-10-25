@@ -12,8 +12,8 @@
 class CaffHeader {
   private:
     char magic[5];
-    double header_size;
-    double num_anim;
+    long long header_size;
+    long long num_anim;
     
   public:
     CaffHeader() {
@@ -28,19 +28,19 @@ class CaffHeader {
         return magic;
     }
     
-    void setHeader_size(double l) {
+    void setHeader_size(long long l) {
         header_size = l;
     }
     
-    double getHeader_size() {
+    long long getHeader_size() {
         return header_size;
     }
     
-    void setNum_anim(double n) {
+    void setNum_anim(long long n) {
         num_anim = n;
     }
     
-    double getNum_anim() {
+    long long getNum_anim() {
         return num_anim;
     }
     

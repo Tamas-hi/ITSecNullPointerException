@@ -16,11 +16,11 @@ class CaffCredits {
     char D;
     char h;
     char min;
-    double creator_len;
+    long long creator_len;
     char* creator;
     
   public:
-    CaffCredits(double len) {
+    CaffCredits(long long len) {
         creator_len = len;
         creator = new char[creator_len];
     }
@@ -69,11 +69,11 @@ class CaffCredits {
         return YY;
     }
     
-    void setCreatorLen(double len) {
+    void setCreatorLen(long long len) {
         creator_len = len;
     }
     
-    double getCreatorLen() {
+    long long getCreatorLen() {
         return creator_len;
     }
     

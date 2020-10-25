@@ -16,17 +16,17 @@ using namespace std;
 class CiffHeader {
   private:
     char magic[5];
-    double header_size;
-    double content_size;
-    double width;
-    double height;
+    long long header_size;
+    long long content_size;
+    long long width;
+    long long height;
     char* caption;
-    double _caption_len;
+    long long _caption_len;
     std::vector<string> tags;
     
     
   public:
-    CiffHeader(double caption_len) {
+    CiffHeader(long long caption_len) {
         _caption_len = caption_len;
         caption = new char[_caption_len];
     }
@@ -44,35 +44,35 @@ class CiffHeader {
         return magic;
     }
     
-    void setHeader_size(double l) {
+    void setHeader_size(long long l) {
         header_size = l;
     }
     
-    double getHeader_size() {
+    long long getHeader_size() {
         return header_size;
     }
     
-    void setContent_size(double l) {
+    void setContent_size(long long l) {
         content_size = l;
     }
     
-    double getContent_size() {
+    long long getContent_size() {
         return content_size;
     }
     
-    void setWidth(double l) {
+    void setWidth(long long l) {
         width = l;
     }
     
-    double getWidth() {
+    long long getWidth() {
         return width;
     }
     
-    void setHeight(double l) {
+    void setHeight(long long l) {
         height = l;
     }
     
-    double getHeight() {
+    long long getHeight() {
         return height;
     }
     

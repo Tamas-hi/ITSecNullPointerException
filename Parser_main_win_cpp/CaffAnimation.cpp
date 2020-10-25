@@ -10,17 +10,17 @@
 
 class CaffAnimation {
   private:
-    double duration;
+    long long duration;
     
   public:
     CaffAnimation() {
     }
     
-    void setDuration(double dur) {
+    void setDuration(long long dur) {
         duration = dur;
     }
     
-    long getDuration() {
+    long long getDuration() {
         return duration;
     }
     

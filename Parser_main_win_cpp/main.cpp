@@ -32,8 +32,8 @@ void dumpbytes(const vector<unsigned char>& v)
 }
 
 // Convert char array to long
-double buffToLong(char* buffer) {
-    double l;
+long long buffToLong(char* buffer) {
+    long long l;
     memcpy(&l, buffer, 8);
     return l;
 }
@@ -53,8 +53,8 @@ short buffToShort(char* buffer) {
 }
 
 // Convert vector to long
-double subvectorToLong(const std::vector<unsigned char>& subvector) {
-    double l;
+long long subvectorToLong(const std::vector<unsigned char>& subvector) {
+    long long l;
     char chars[8];
     
     for (int i = 0; i < 8; i++) {
@@ -85,8 +85,8 @@ CaffHeader subvectorToHeader(const std::vector<unsigned char>& subvector) {
     CaffHeader caffHeader = CaffHeader();
     
     char magic[4];
-    double header_size;
-    double num_anim;
+    long long header_size;
+    long long num_anim;
     
     for (int i = 0; i < 4; i++) {
         magic[i] = subvector.at(i);
@@ -112,7 +112,7 @@ CaffCredits subvectorToCredits(const std::vector<unsigned char>& subvector) {
     char day;
     char hour;
     char minute;
-    double creator_len;
+    long long creator_len;
     
     std::vector<unsigned char> year_vector(&subvector[0], &subvector[2]);
     year = subvectorToShort(year_vector);
@@ -149,7 +149,7 @@ CaffCredits subvectorToCredits(const std::vector<unsigned char>& subvector) {
 CaffAnimation subvectorToAnimation(const std::vector<unsigned char>& subvector) {
     CaffAnimation caffAnimation = CaffAnimation();
     
-    double duration;
+    long long duration;
     
     std::vector<unsigned char> duration_vector(&subvector[0], &subvector[8]);
     duration = subvectorToLong(duration_vector);
@@ -162,10 +162,10 @@ CaffAnimation subvectorToAnimation(const std::vector<unsigned char>& subvector) 
 // Convert vector to CiffHeader
 CiffHeader subvectorToCiffHeader(const std::vector<unsigned char>& subvector) {
     char magic[4];
-    double header_size;
-    double content_size;
-    double width;
-    double height;
+    long long header_size;
+    long long content_size;
+    long long width;
+    long long height;
     
     int _current_location = 0;
     
@@ -243,8 +243,8 @@ CiffHeader subvectorToCiffHeader(const std::vector<unsigned char>& subvector) {
 CaffReturnData readBlocks(const vector<unsigned char>& v)
 {
     char block_id = 0;
-    double block_length;
-    double block_beg = 0;
+    long long block_length;
+    long long block_beg = 0;
     bool creditsIsPresent = false;
     
     CaffReturnData caff_return = CaffReturnData();
@@ -253,7 +253,7 @@ CaffReturnData readBlocks(const vector<unsigned char>& v)
         return caff_return;
     }
     
-    double i = 0;
+    long long i = 0;
     while(i < v.size()) {
         block_id = v.at(block_beg);
         std::vector<unsigned char> sub(&v[block_beg + 1], &v[block_beg + 8 + 1]);
