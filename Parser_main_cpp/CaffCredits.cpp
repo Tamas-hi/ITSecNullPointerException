@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <cstring>
+#include <cstdint>
 
 class CaffCredits {
   private:
@@ -16,11 +17,11 @@ class CaffCredits {
     char D;
     char h;
     char min;
-    long creator_len;
+    int64_t creator_len;
     char* creator;
     
   public:
-    CaffCredits(long len) {
+    CaffCredits(int64_t len) {
         creator_len = len;
         creator = new char[creator_len];
     }
@@ -69,11 +70,11 @@ class CaffCredits {
         return YY;
     }
     
-    void setCreatorLen(long len) {
+    void setCreatorLen(int64_t len) {
         creator_len = len;
     }
     
-    long getCreatorLen() {
+    int64_t getCreatorLen() {
         return creator_len;
     }
     

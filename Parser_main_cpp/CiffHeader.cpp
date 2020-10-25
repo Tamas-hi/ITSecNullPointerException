@@ -10,25 +10,26 @@
 #include <string>
 #include <cstring>
 #include <vector>
+#include <cstdint>
 
 using namespace std;
 
 class CiffHeader {
   private:
     char magic[5];
-    long header_size;
-    long content_size;
-    long width;
-    long height;
+    int64_t header_size;
+    int64_t content_size;
+    int64_t width;
+    int64_t height;
     char* caption;
-    long _caption_len;
+    int64_t _caption_len;
     std::vector<string> tags;
     
     
   public:
-    CiffHeader(long caption_len) {
+    CiffHeader(int64_t caption_len) {
         _caption_len = caption_len;
-        caption = new char[_caption_len];
+        caption = new char[_caption_len + 1];
     }
     
     ~CiffHeader() {
@@ -44,35 +45,35 @@ class CiffHeader {
         return magic;
     }
     
-    void setHeader_size(long l) {
+    void setHeader_size(int64_t l) {
         header_size = l;
     }
     
-    long getHeader_size() {
+    int64_t getHeader_size() {
         return header_size;
     }
     
-    void setContent_size(long l) {
+    void setContent_size(int64_t l) {
         content_size = l;
     }
     
-    long getContent_size() {
+    int64_t getContent_size() {
         return content_size;
     }
     
-    void setWidth(long l) {
+    void setWidth(int64_t l) {
         width = l;
     }
     
-    long getWidth() {
+    int64_t getWidth() {
         return width;
     }
     
-    void setHeight(long l) {
+    void setHeight(int64_t l) {
         height = l;
     }
     
-    long getHeight() {
+    int64_t getHeight() {
         return height;
     }
     
