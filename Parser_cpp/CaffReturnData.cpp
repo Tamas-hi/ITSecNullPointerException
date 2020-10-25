@@ -9,30 +9,31 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cstdint>
 
 class CaffReturnData {
   private:
-    long width;
-    long height;
+    int64_t width;
+    int64_t height;
     std::string _caption;
     std::string _creator;
     std::vector<std::string> tags;
     std::vector<unsigned char> rgb_pixels;
     
   public:    
-    void setWidth(long l) {
+    void setWidth(int64_t l) {
         width = l;
     }
     
-    long getWidth() {
+    int64_t getWidth() {
         return width;
     }
     
-    void setHeight(long l) {
+    void setHeight(int64_t l) {
         height = l;
     }
     
-    long getHeight() {
+    int64_t getHeight() {
         return height;
     }
     

@@ -7,20 +7,21 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <cstdint>
 
 class CaffAnimation {
   private:
-    long duration;
+    int64_t duration;
     
   public:
     CaffAnimation() {
     }
     
-    void setDuration(long dur) {
+    void setDuration(int64_t dur) {
         duration = dur;
     }
     
-    long getDuration() {
+    int64_t getDuration() {
         return duration;
     }
     
