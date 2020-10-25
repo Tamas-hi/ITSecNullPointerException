@@ -334,6 +334,8 @@ int main(int argc, const char * argv[]) {
         std::streampos fileSize;
         ifstream caffFile (argv[1], ios::in | ios::binary);
         
+        if(caffFile.is_open()) {
+        
         caffFile.seekg(0, std::ios::end);
         fileSize = caffFile.tellg();
         caffFile.seekg(0, std::ios::beg);
@@ -354,6 +356,9 @@ int main(int argc, const char * argv[]) {
         }
         
         img.close();
+        } else {
+            cout << "Parser cannot read this file" << endl;
+        }
     } else {
         cout << "Pass one argument" << endl;
     }
