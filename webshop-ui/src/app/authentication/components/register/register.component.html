@@ -1,0 +1,23 @@
+<form [formGroup]="registerForm" fxLayout="column" fxLayoutAlign="space-around center">
+    <h1>Regisztráció</h1>
+
+    <mat-form-field>
+        <mat-label>Felhasználónév</mat-label>
+        <input matInput formControlName="userName" required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Jelszó</mat-label>
+        <input matInput type="password" formControlName="password" required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Jelszó újra</mat-label>
+        <input matInput type="password" formControlName="passwordAgain" required>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" [disabled]="isLoginButtonDisabled">Regisztráció</button>
+
+    <a routerLink="/auth/login">Van már fiókja? Jelentkezzen be itt!</a>
+
+</form>
