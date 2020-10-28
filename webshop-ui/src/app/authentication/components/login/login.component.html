@@ -1,0 +1,18 @@
+<form [formGroup]="loginForm" fxLayout="column" fxLayoutAlign="space-around center">
+    <h1>Bejelentkezés</h1>
+
+    <mat-form-field>
+        <mat-label>Felhasználónév</mat-label>
+        <input matInput formControlName="userName" required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Jelszó</mat-label>
+        <input matInput type="password" formControlName="password" required>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="login()" [disabled]="isLoginButtonDisabled">Bejelentkezés</button>
+
+    <a routerLink="/auth/register">Nincs még fiókja? Hozzon létre egyet most!</a>
+
+</form>
