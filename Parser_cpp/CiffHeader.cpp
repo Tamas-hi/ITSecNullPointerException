@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cstring>
 #include <cstdint>
 
 using namespace std;
