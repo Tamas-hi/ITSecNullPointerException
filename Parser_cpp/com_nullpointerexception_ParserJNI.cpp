@@ -19,6 +19,7 @@
 #include "CiffHeader.cpp"
 #include "CiffContent.cpp"
 #include "CaffReturnData.cpp"
+#include <bitset>
 
 // Print all bytes
 void dumpbytes(const vector<unsigned char>& v)
