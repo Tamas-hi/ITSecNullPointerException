@@ -1,0 +1,1 @@
+INSERT INTO admin(id, email, password, role) values (1, 'asd', '123', 'ADMIN');

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.webshop.domain.CaffPost;
+import com.webshop.entity.CaffPost;
 import com.webshop.repository.CaffPostRepository;
 
 @Service
