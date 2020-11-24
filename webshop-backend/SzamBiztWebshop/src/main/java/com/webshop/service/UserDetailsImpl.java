@@ -8,15 +8,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.webshop.entity.Role;
-import com.webshop.entity.TheUser;
+import com.webshop.model.Role;
+import com.webshop.model.Customer;
 
 public class UserDetailsImpl implements UserDetails{
 	private static final long serialVersionUID = 3185970362329652822L;
 
-	private TheUser user;
+	private Customer user;
 
-	public UserDetailsImpl(TheUser user) {
+	public UserDetailsImpl(Customer user) {
 		this.user = user;
 	}
 

@@ -1,13 +1,19 @@
 package com.webshop.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.webshop.entity.TheUser;
+import com.webshop.model.Customer;
 import com.webshop.service.CaffPostService;
 import com.webshop.service.UserServiceImpl;
 
@@ -32,15 +38,26 @@ public class HomeController {
 		return "Hello hello sziasztok!";
 	}
 	
+	@RequestMapping("/login")
+    public boolean login(@RequestBody Customer user) {
+        return
+          user.getEmail().equals("user") && user.getPassword().equals("password");
+    }
 	
 	@RequestMapping("/registration")
 	public String registration(Model model) {
-		model.addAttribute("user", new TheUser());
+		model.addAttribute("user", new Customer());
 		return "successful";
 	}
 	
 	@RequestMapping(value = "/reg", method = RequestMethod.POST)
-    public void greetingSubmit(@ModelAttribute TheUser user) {
+    public void greetingSubmit(@RequestBody Customer user) {
 		userService.registerTheUser(user);
+	}
+	
+	@GetMapping("users")
+    public ResponseEntity<List<Customer>> allUser() {
+		return new ResponseEntity<>(userService.findCustomer(),HttpStatus.OK);
+				
 	}
 }

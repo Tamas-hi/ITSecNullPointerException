@@ -25,6 +25,11 @@ public class SecurityConf extends WebSecurityConfigurerAdapter{
 	@Autowired
 	public void configureAuth(AuthenticationManagerBuilder auth) throws Exception{
 		auth.userDetailsService(userService);
+		auth
+			.inMemoryAuthentication()
+				.withUser("root")
+				.password("{noop}admin")
+				.roles("ADMIN");
 	}
 	
 	@Override
@@ -33,10 +38,15 @@ public class SecurityConf extends WebSecurityConfigurerAdapter{
 			.authorizeRequests()
 				.antMatchers(HttpMethod.GET,"/").permitAll()
 				.antMatchers(HttpMethod.GET,"/login").permitAll()
-				.antMatchers("/valami").hasRole("USER")
-				.antMatchers("/delete").hasRole("Admin")
+				.antMatchers(HttpMethod.GET,"/registration").permitAll()
+				.antMatchers(HttpMethod.POST,"/reg").permitAll()
+				.antMatchers("/caffposts").hasRole("USER")
+				.antMatchers("/delete").hasRole("ADMIN")
+				.anyRequest().authenticated()
 				.and()
+				.csrf().disable()
 				.formLogin().permitAll();
+				
 						
 	}
 	
