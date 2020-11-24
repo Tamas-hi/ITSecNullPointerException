@@ -19,6 +19,7 @@
 #include "CiffHeader.cpp"
 #include "CiffContent.cpp"
 #include "CaffReturnData.cpp"
+#include <bitset>
 
 // Print all bytes
 void dumpbytes(const vector<unsigned char>& v)
@@ -359,7 +360,7 @@ JNIEXPORT jobject JNICALL Java_com_nullpointerexception_ParserJNI_readData(JNIEn
     env->SetLongField(newCaffData, heightField, (jlong)return_data.getHeight());
     
     // creator_name
-    string_length = return_data.getCaption().length();
+    string_length = return_data.getCreator().length();
     char creator[string_length + 1];
     strcpy(creator, return_data.getCreator().c_str());
     jstring jstrCreator = env -> NewStringUTF(creator);
