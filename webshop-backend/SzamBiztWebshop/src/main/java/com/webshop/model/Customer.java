@@ -32,7 +32,6 @@ public class Customer {
 	
 	private String name;
 	
-	@JsonBackReference
 	@ManyToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER )
 	@JoinTable( 
 		name = "users_roles", 
