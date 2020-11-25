@@ -1,29 +1,24 @@
 package com.webshop.service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import com.webshop.model.Role;
+import com.webshop.model.User;
+import com.webshop.repository.RoleRepository;
+import com.webshop.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.webshop.model.Role;
-import com.webshop.model.Customer;
-import com.webshop.repository.CustomerRepository;
-import com.webshop.repository.RoleRepository;
+import java.util.List;
 
 @Service
-public class UserServiceImpl implements IUserService,UserDetailsService{
+public class UserServiceImpl implements IUserService, UserDetailsService {
 	
 	private RoleRepository roleRepository;
-	
-	@Autowired
-	private CustomerRepository cmrepo;
-	
+
+	private UserRepository userRepository;
+
 	private final String USER_ROLE = "USER";
 	
 	@Autowired
@@ -31,38 +26,39 @@ public class UserServiceImpl implements IUserService,UserDetailsService{
 		this.roleRepository = roleRepository;
 	}
 
+	@Autowired
+	public void setUserRepository(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
+
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		System.out.println("User keresés");
-		Customer user = findByEmail(username);
-		if( user == null ){
-			throw new UsernameNotFoundException(username);
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		User user = findByEmail(email);
+		if (user == null) {
+			throw new UsernameNotFoundException(email);
 		}
 		
 		return new UserDetailsImpl(user);
 	}
 
-	public Customer findByEmail(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public User findByEmail(String email) {
+		return userRepository.findFirstByEmail(email);
 	}
 
 	@Override
-	public void registerTheUser(Customer user) {
+	public void registerTheUser(User user) {
 		Role userRole = roleRepository.findByRole(USER_ROLE);
 		
-		if(userRole != null) {
+		if (userRole != null) {
 			user.getRoles().add(userRole);
-		}else {
+		} else {
 			user.addRoles(USER_ROLE);
 		}
-		
-		cmrepo.save(user);
+
+		userRepository.save(user);
 	}
 	
-	public List<Customer> findCustomer(){
-		return (List<Customer>) cmrepo.findAll();
+	public List<User> findUser() {
+		return (List<User>) userRepository.findAll();
 	}
-	
-	
 }

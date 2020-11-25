@@ -1,13 +1,10 @@
 package com.webshop.service;
 
-import java.util.List;
-
-import com.webshop.model.Customer;
+import com.webshop.model.User;
 
 public interface IUserService {
 	
-	public void registerTheUser(Customer user);
+	void registerTheUser(User user);
 	
-	public Customer findByEmail(String email);
-	
+	User findByEmail(String email);
 }
