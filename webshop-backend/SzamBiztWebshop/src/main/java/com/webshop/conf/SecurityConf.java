@@ -40,12 +40,13 @@ public class SecurityConf extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity httpSec) throws Exception {
 		httpSec
 			.authorizeRequests()
+				.antMatchers("/caffposts/all").hasAuthority("USER")
+				.antMatchers("/users").hasAuthority("USER")
+				.antMatchers("/caffposts/delete").hasAuthority("ADMIN")
 				.antMatchers(HttpMethod.GET,"/").permitAll()
 				.antMatchers(HttpMethod.GET,"/login").permitAll()
 				.antMatchers(HttpMethod.GET,"/registration").permitAll()
 				.antMatchers(HttpMethod.POST,"/reg").permitAll()
-				.antMatchers("/caffposts").hasRole("USER")
-				.antMatchers("/delete").hasRole("ADMIN")
 				.anyRequest().authenticated()
 				.and()
 				.csrf().disable()
