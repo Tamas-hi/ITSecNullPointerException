@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('../authentication/authentication.module').then(m => m.AuthenticationModule)
+  },
+  {
+    path: 'caffposts',
+    loadChildren: () => import('../caffposts/caffposts.module').then(m => m.CaffpostsModule)
   }
 ];
 
