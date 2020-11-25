@@ -1,5 +1,6 @@
 package com.webshop.conf;
 
+import com.webshop.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,10 +19,13 @@ public class SecurityConf extends WebSecurityConfigurerAdapter{
 	public UserDetailsService userDetailsService() {
 	    return super.userDetailsService();
 	}
-	
-	@Autowired
-	private UserDetailsService userService;
-	
+
+	private final UserServiceImpl userService;
+
+	public SecurityConf(UserServiceImpl userService) {
+		this.userService = userService;
+	}
+
 	@Autowired
 	public void configureAuth(AuthenticationManagerBuilder auth) throws Exception{
 		auth.userDetailsService(userService);
@@ -46,8 +50,5 @@ public class SecurityConf extends WebSecurityConfigurerAdapter{
 				.and()
 				.csrf().disable()
 				.formLogin().permitAll();
-				
-						
 	}
-	
 }

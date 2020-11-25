@@ -1,5 +1,7 @@
 package com.webshop.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,10 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 
 @Entity
-@Table( name = "roles" )
 public class Role {
 
 	@Id
@@ -18,9 +18,10 @@ public class Role {
 	private Long id;
 	
 	private String role;
-	
-	@ManyToMany( mappedBy = "roles")
-	private Set<Customer> users = new HashSet<Customer>();
+
+	@ManyToMany(mappedBy = "roles")
+	@JsonBackReference
+	private Set<User> users = new HashSet<>();
 	
 	public Role(){
 		
@@ -46,14 +47,14 @@ public class Role {
 		this.role = role;
 	}
 
-	public Set<Customer> getUsers() {
+	public Set<User> getUsers() {
 		return users;
 	}
 
-	public void setUsers(Set<Customer> users) {
+	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Role [id=" + id + ", role=" + role + "]";

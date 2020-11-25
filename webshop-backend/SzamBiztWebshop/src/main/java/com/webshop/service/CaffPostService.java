@@ -11,18 +11,18 @@ import com.webshop.repository.CaffPostRepository;
 @Service
 public class CaffPostService {
 	
-	CaffPostRepository caffRepo;
+	CaffPostRepository caffPostRepository;
 
 	@Autowired
-	public void setCaffRepo(CaffPostRepository caffRepo) {
-		this.caffRepo = caffRepo;
+	public void setCaffPostRepository(CaffPostRepository caffPostRepository) {
+		this.caffPostRepository = caffPostRepository;
 	}
 	
 	public List<CaffPost> getPosts(){
-		return caffRepo.findAll();
+		return caffPostRepository.findAll();
 	}
 	
 	public CaffPost findCaffById(long id){
-		return caffRepo.findCaffPostById(id);
+		return caffPostRepository.findCaffPostById(id);
 	}
 }

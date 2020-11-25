@@ -4,25 +4,25 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.webshop.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.webshop.model.Role;
-import com.webshop.model.Customer;
 
-public class UserDetailsImpl implements UserDetails{
+public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 3185970362329652822L;
 
-	private Customer user;
+	private final User user;
 
-	public UserDetailsImpl(Customer user) {
+	public UserDetailsImpl(User user) {
 		this.user = user;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Collection<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+		Collection<GrantedAuthority> authorities = new HashSet<>();
 		Set<Role> roles = user.getRoles();
 		for (Role role : roles) {
 			authorities.add(new SimpleGrantedAuthority(role.getRole()));
@@ -32,7 +32,7 @@ public class UserDetailsImpl implements UserDetails{
 
 	@Override
 	public String getPassword() {
-		return user.getPassword();
+		return "{noop}" + user.getPassword();
 	}
 
 	@Override

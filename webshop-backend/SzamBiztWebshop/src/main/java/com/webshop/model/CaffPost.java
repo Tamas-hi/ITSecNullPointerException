@@ -18,17 +18,17 @@ public class CaffPost{
 	private Date posted;
 	
 	@ManyToOne
-	private Customer customer;
+	private User user;
 	
 	public CaffPost() {
 	}
 	
-	public CaffPost(long id, String title, String content, Date posted, Customer user) {
+	public CaffPost(long id, String title, String content, Date posted, User user) {
 		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.posted = posted;
-		this.customer = user;
+		this.user = user;
 	}
 
 	public long getId() {
@@ -63,20 +63,20 @@ public class CaffPost{
 		this.posted = posted;
 	}
 
-	public Customer getAuthor() {
-		return customer;
+	public User getAuthor() {
+		return user;
 	}
 
-	public void setAuthor(Customer user) {
-		this.customer = user;
+	public void setAuthor(User user) {
+		this.user = user;
 	}
 
-	public Customer getThe_user() {
-		return customer;
+	public User getThe_user() {
+		return user;
 	}
 
-	public void setThe_user(Customer user) {
-		this.customer = user;
+	public void setThe_user(User user) {
+		this.user = user;
 	}
 
 }

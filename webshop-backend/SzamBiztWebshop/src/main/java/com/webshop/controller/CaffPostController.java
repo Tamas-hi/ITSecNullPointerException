@@ -14,21 +14,21 @@ import com.webshop.service.CaffPostService;
 @RequestMapping("/caffposts")
 public class CaffPostController {
 
-	CaffPostService caffpostservice;
+	CaffPostService caffPostService;
 	
 	@Autowired
-	public void setCaffpostservice(CaffPostService caffpostservice) {
-		this.caffpostservice = caffpostservice;
+	public void setCaffPostService(CaffPostService caffPostService) {
+		this.caffPostService = caffPostService;
 	}
 
 	@RequestMapping("/all")
 	public List<CaffPost> getAllCaff(){
-		return caffpostservice.getPosts();
+		return caffPostService.getPosts();
 	}
 	
 	@RequestMapping("/get/{id}")
 	public CaffPost findCaffById(@PathVariable long id) {
-		return caffpostservice.findCaffById(id);
+		return caffPostService.findCaffById(id);
 	}
 	
 	@RequestMapping("/delete/{id}")
@@ -40,6 +40,4 @@ public class CaffPostController {
 	public String uploadCaffById(@PathVariable long id) {
 		return "Deletet successfull";
 	}
-	
-	
 }
