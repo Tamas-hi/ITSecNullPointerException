@@ -37,6 +37,7 @@ public class CaffPostController {
 	
 	@RequestMapping("/upload/{id}")
 	public String uploadCaffById(@PathVariable long id) {
+		// ide kerüljön a /indexről
 		return "Deletet successfull";
 	}
 }
