@@ -1,55 +1,58 @@
 package com.webshop.conf;
 
-import com.webshop.service.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Collections;
 
 @EnableGlobalMethodSecurity(securedEnabled = true)
 @Configuration
 public class SecurityConf extends WebSecurityConfigurerAdapter{
 
+	@Bean("authenticationManager")
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+
 	@Bean
-	public UserDetailsService userDetailsService() {
-	    return super.userDetailsService();
-	}
-
-	private final UserServiceImpl userService;
-
-	public SecurityConf(UserServiceImpl userService) {
-		this.userService = userService;
-	}
-
-	@Autowired
-	public void configureAuth(AuthenticationManagerBuilder auth) throws Exception{
-		auth.userDetailsService(userService);
-		auth
-			.inMemoryAuthentication()
-				.withUser("root")
-				.password("{noop}admin")
-				.roles("ADMIN");
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 	
 	@Override
 	protected void configure(HttpSecurity httpSec) throws Exception {
-		httpSec
+		httpSec.csrf().disable()
 			.authorizeRequests()
 				.antMatchers("/caffposts/all").hasAuthority("USER")
 				.antMatchers("/users").hasAuthority("USER")
 				.antMatchers("/caffposts/delete").hasAuthority("ADMIN")
 				.antMatchers(HttpMethod.GET,"/").permitAll()
-				.antMatchers(HttpMethod.GET,"/login").permitAll()
-				.antMatchers(HttpMethod.GET,"/registration").permitAll()
-				.antMatchers(HttpMethod.POST,"/reg").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/login").permitAll()
+				.antMatchers(HttpMethod.POST,"/api/register").permitAll()
 				.anyRequest().authenticated()
 				.and()
-				.csrf().disable()
-				.formLogin().permitAll();
+				.cors().configurationSource(corsConfigurationSource());
+	}
+
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+		configuration.setAllowedMethods(Collections.singletonList("*"));
+		configuration.setAllowedHeaders(Collections.singletonList("*"));
+		configuration.setAllowCredentials(true);
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
 	}
 }
