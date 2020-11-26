@@ -4,7 +4,6 @@ import com.webshop.model.Role;
 import com.webshop.model.User;
 import com.webshop.repository.RoleRepository;
 import com.webshop.repository.UserRepository;
-import com.webshop.service.authentication.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
