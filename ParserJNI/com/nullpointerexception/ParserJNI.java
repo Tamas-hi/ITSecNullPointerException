@@ -15,7 +15,7 @@ public class ParserJNI {
     }
 
     public static void main(String[] args) throws IOException {
-        Path path = Paths.get("/Users/norbert/1.caff");
+        Path path = Paths.get("C:\\Users\\hargi\\1.caff");
         try {
             byte[] data = Files.readAllBytes(path);
             CaffData result = new ParserJNI().readData(data);
