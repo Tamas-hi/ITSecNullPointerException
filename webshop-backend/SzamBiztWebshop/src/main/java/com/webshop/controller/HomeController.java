@@ -12,7 +12,10 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import com.webshop.model.User;
+import com.webshop.service.UserServiceImpl;
+import com.webshop.SzamBiztWebshopApplication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -22,11 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.webshop.service.UserServiceImpl;
-
 @RestController
 public class HomeController {
-	
 	UserServiceImpl userService;
 	
 	@Autowired
@@ -50,7 +50,7 @@ public class HomeController {
             System.out.println(Arrays.toString(result.tags));
 
             BufferedImage image = new BufferedImage((int)result.image_width, (int)result.image_height, BufferedImage.TYPE_INT_RGB);
-            
+
             int z = 0;
             for (int y = 0; y < (int)result.image_height; y++) {
                 for (int x = 0; x < (int)result.image_width; x++) {

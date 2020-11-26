@@ -6,7 +6,7 @@
 //
 
 #include <iostream>
-#include "com_nullpointerexception_ParserJNI.h"
+#include "com_webshop_controller_HomeController.h"
 
 #include <fstream>
 #include <stdio.h>
@@ -326,10 +326,10 @@ CaffReturnData readBlocks(const vector<unsigned char>& v)
     return caff_return;
 }
 
-JNIEXPORT jobject JNICALL Java_com_nullpointerexception_ParserJNI_readData(JNIEnv * env, jobject, jbyteArray array) {
+JNIEXPORT jobject JNICALL Java_com_webshop_controller_HomeController_readData(JNIEnv * env, jobject, jbyteArray array) {
     
     // Create the object of the class CaffData
-    jclass caffDataClass = env->FindClass("com/nullpointerexception/CaffData");
+    jclass caffDataClass = env->FindClass("com/webshop/controller/CaffData");
     jobject newCaffData = env->AllocObject(caffDataClass);
     
     // Get the CaffData fields to be set
