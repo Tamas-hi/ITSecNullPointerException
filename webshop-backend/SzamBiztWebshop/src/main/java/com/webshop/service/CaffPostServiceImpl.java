@@ -2,6 +2,8 @@ package com.webshop.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +29,12 @@ public class CaffPostServiceImpl {
 		return caffPostRepository.findCaffPostById(id);
 	}
 	
-	public String uploadCaff(long id) {
-		return "asd";
+	@Transactional
+	public void deleteCaffById(long id) {
+		caffPostRepository.deleteCaffPostById(id);
+	}
+	
+	public void uploadCaff(CaffPost caffPost) {
+		caffPostRepository.save(caffPost);
 	}
 }

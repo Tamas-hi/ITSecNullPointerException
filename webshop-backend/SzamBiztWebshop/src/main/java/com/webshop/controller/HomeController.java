@@ -2,6 +2,8 @@ package com.webshop.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import com.webshop.model.User;
 import com.webshop.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,6 +49,12 @@ public class HomeController {
 	
 	@GetMapping("users")
     public ResponseEntity<List<User>> allUser() {
-		return new ResponseEntity<>(userService.findUser(),HttpStatus.OK);
+		return new ResponseEntity<>(userService.findAll(),HttpStatus.OK);
+	}
+	
+	@RequestMapping("/delete/{id}")
+	public String deleteUser(@PathVariable long id) {
+		userService.deleteUserById(id);
+		return "successful";
 	}
 }
