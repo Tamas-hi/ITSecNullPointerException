@@ -36,7 +36,6 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public String index() {
-		System.loadLibrary("parser");
 		Path path = Paths.get("C:\\Users\\hargi\\1.caff");
         try {
             byte[] data = Files.readAllBytes(path);
