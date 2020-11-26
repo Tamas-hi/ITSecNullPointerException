@@ -6,7 +6,7 @@
 //
 
 #include <iostream>
-#include "com_webshop_controller_HomeController.h"
+#include "com_webshop_controller_CaffPostController.h"
 
 #include <fstream>
 #include <stdio.h>
@@ -326,7 +326,7 @@ CaffReturnData readBlocks(const vector<unsigned char>& v)
     return caff_return;
 }
 
-JNIEXPORT jobject JNICALL Java_com_webshop_controller_HomeController_readData(JNIEnv * env, jobject, jbyteArray array) {
+JNIEXPORT jobject JNICALL Java_com_webshop_controller_CaffPostController_readData(JNIEnv * env, jobject, jbyteArray array) {
     
     // Create the object of the class CaffData
     jclass caffDataClass = env->FindClass("com/webshop/controller/CaffData");
