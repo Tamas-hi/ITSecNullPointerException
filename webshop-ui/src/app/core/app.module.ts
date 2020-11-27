@@ -15,6 +15,10 @@ const routes: Routes = [
   {
     path: 'caffposts',
     loadChildren: () => import('../caffposts/caffposts.module').then(m => m.CaffpostsModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('../admin/admin.module').then(m => m.AdminModule)
   }
 ];
 
