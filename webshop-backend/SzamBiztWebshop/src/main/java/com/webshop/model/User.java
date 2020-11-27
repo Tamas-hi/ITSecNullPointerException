@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,7 +14,8 @@ import java.util.Set;
 @Entity
 @Table(name = "users", uniqueConstraints=@UniqueConstraint(columnNames= {"email"}))
 public class User {
-    @GeneratedValue
+
+	@GeneratedValue
     @Id
     private long id;
 
@@ -36,14 +39,28 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<CaffPost> caffPosts;
 
-    public void addRoles(String roleName) {
+
+	public void addRoles(String roleName) {
         if(this.roles == null || this.roles.isEmpty())
             this.roles = new HashSet<>();
 
         this.roles.add(new Role(roleName));
     }
+	
+	  public User(long id, String email, String password, String name, Set<Role> roles, List<CaffPost> caffPosts) {
+			super();
+			this.id = id;
+			this.email = email;
+			this.password = password;
+			this.name = name;
+			this.roles = roles;
+			this.caffPosts = caffPosts;
+		}
 
-    public long getId() {
+    public User() {
+	}
+
+	public long getId() {
         return id;
     }
 
