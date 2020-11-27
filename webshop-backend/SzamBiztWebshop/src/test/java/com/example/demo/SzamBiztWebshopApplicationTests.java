@@ -1,6 +1,6 @@
 package com.example.demo;
 
-/*import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -27,9 +27,9 @@ import com.webshop.model.User;
 import com.webshop.repository.CaffPostRepository;
 import com.webshop.repository.UserRepository;
 import com.webshop.service.CaffPostServiceImpl;
-import com.webshop.service.authentication.UserServiceImpl;*/
+import com.webshop.service.authentication.UserServiceImpl;
 
-/*@SpringBootTest(classes = SzamBiztWebshopApplication.class)
+@SpringBootTest(classes = SzamBiztWebshopApplication.class)
 @RunWith(MockitoJUnitRunner.class)
 class SzamBiztWebshopApplicationTests {
 	
@@ -114,4 +114,3 @@ class SzamBiztWebshopApplicationTests {
     
 
 }
-*/
