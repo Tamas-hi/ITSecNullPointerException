@@ -4,16 +4,20 @@ import { CafffilesearcherComponent } from './components/cafffilesearcher/cafffil
 import {RouterModule, Routes} from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import {MatButtonModule} from "@angular/material/button";
+import { CafffileuploadComponent } from './components/cafffileupload/cafffileupload.component';
 
 const routes: Routes = [
   {
     path: 'search',
     component: CafffilesearcherComponent
+  }, {
+    path: 'upload',
+    component: CafffileuploadComponent
   }
 ];
 
 @NgModule({
-  declarations: [CafffilesearcherComponent],
+  declarations: [CafffilesearcherComponent, CafffileuploadComponent],
   imports: [
     MatCardModule,
     CommonModule,
