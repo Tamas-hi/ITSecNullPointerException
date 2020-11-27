@@ -33,9 +33,10 @@ public class SecurityConf extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity httpSec) throws Exception {
 		httpSec.csrf().disable()
 			.authorizeRequests()
-				.antMatchers("/caffposts/all").hasAuthority("USER")
-				.antMatchers("/users").hasAuthority("USER")
-				.antMatchers("/caffposts/delete").hasAuthority("ADMIN")
+				.antMatchers("/api/getAll").hasAuthority("USER")
+				.antMatchers("/api/users").hasAuthority("USER")
+				.antMatchers("/api/search/**").hasAuthority("USER")
+				.antMatchers("/api/delete/**").hasAuthority("ADMIN")
 				.antMatchers(HttpMethod.GET,"/").permitAll()
 				.antMatchers(HttpMethod.POST, "/api/login").permitAll()
 				.antMatchers(HttpMethod.POST,"/api/register").permitAll()

@@ -29,7 +29,7 @@ public class UserController {
     }
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public ResponseEntity<Boolean> login() {
+	public ResponseEntity<Boolean> logout() {
 		return userService.logout();
 	}
 	

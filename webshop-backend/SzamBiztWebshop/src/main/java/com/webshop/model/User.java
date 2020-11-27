@@ -2,6 +2,7 @@ package com.webshop.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -9,17 +10,17 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints=@UniqueConstraint(columnNames= {"email"}))
 public class User {
     @GeneratedValue
     @Id
     private long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)
-    @JsonIgnore
+    @JsonProperty(access = Access.WRITE_ONLY)
     private String password;
 
     private String name;
@@ -57,13 +58,12 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    
     @JsonIgnore
     public String getPassword() {
         return password;
     }
 
-    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }

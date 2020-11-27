@@ -7,30 +7,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 
 @RestController
-@RequestMapping("/caffposts")
+@RequestMapping("/api")
 public class CaffPostController {
 
 	CaffPostServiceImpl caffPostServiceImpl;
@@ -46,28 +42,31 @@ public class CaffPostController {
 	public void setUserRepository(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
+	
+	@RequestMapping("/search")
+	public ResponseEntity<CaffPost> searchCaffByTitle(@RequestParam String title) {
+	    return new ResponseEntity<>(caffPostServiceImpl.findCaffByTitle(title), HttpStatus.OK);
+	}
 
 
-	@RequestMapping("/all")
+	@RequestMapping("/getAll")
 	public ResponseEntity<List<CaffPost>> getAllCaff(){
 		return new ResponseEntity<>(caffPostServiceImpl.getPosts(), HttpStatus.OK);
 	}
 	
 	@RequestMapping("/get/{id}")
-	public CaffPost findCaffById(@PathVariable long id) {
-		return caffPostServiceImpl.findCaffById(id);
-		
+	public ResponseEntity<CaffPost> findCaffById(@PathVariable long id) {
+		return new ResponseEntity<>(caffPostServiceImpl.findCaffById(id), HttpStatus.OK);
 	}
 	
 	@RequestMapping("/delete/{id}")
-	public String deleteCaffById(@PathVariable long id) {
+	public ResponseEntity<HttpStatus> deleteCaffById(@PathVariable long id) {
 		caffPostServiceImpl.deleteCaffById(id);
-		return "deleteCaffById";
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@RequestMapping("/upload")
-	public String uploadCaff() {
-		String s = "empty";
+	public ResponseEntity<HttpStatus> uploadCaff() {
 		// path-t valahogy meg kell kapni a user-től amikor betallózza a fájlt
 		Path path = Paths.get("C:\\Users\\Tomi\\1.caff");
         try {
@@ -107,17 +106,16 @@ public class CaffPostController {
             caffPost.setContent(bytes);
             caffPost.setPosted(posted);
             caffPost.setUser(userRepository.findFirstByEmail("asd@asd.com"));
+            caffPost.setCreator_name(result.creator_name);
+            caffPost.setCaption(result.caption);
+            caffPost.setTags(result.tags);
             
             caffPostServiceImpl.uploadCaff(caffPost);
-            
-            FileOutputStream fos = new FileOutputStream("C:\\Users\\Tomi\\test.bmp"); 
-            fos.write(bytes);
 
         } catch (IOException ioException) {
             System.out.println(ioException.getLocalizedMessage());
         }
-        
-		return s;
+        return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	private native CaffData readData(byte[] file);
