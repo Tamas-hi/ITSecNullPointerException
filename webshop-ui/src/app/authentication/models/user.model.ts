@@ -1,4 +1,10 @@
+import {Role} from '../enums/role.enum';
+
 export class User {
-    public userName: string;
-    public password: string;
+  id?: number;
+  email: string;
+  password: string;
+  name?: string;
+
+  roles?: { id: number, role: Role }[];
 }

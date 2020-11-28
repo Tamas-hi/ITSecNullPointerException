@@ -29,6 +29,10 @@ public class UserDetailsImpl implements UserDetails {
 		return authorities;
 	}
 
+	public long getUserId() {
+		return user.getId();
+	}
+
 	@JsonIgnore
 	@Override
 	public String getPassword() {

@@ -101,6 +101,7 @@ public class User {
         this.roles = roles;
     }
 
+    @JsonIgnore
     public List<CaffPost> getCaffPosts() {
         return caffPosts;
     }
