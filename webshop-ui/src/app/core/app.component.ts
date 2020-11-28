@@ -29,4 +29,12 @@ export class AppComponent {
         () => SnackBarHelperUtil.showMessage(this.matSnackBar, 'Sikeres kijelentkezés!'));
     });
   }
+
+  public search(): void {
+    this.router.navigate(['/caff-posts/search']);
+  }
+
+  public upload(): void {
+    this.router.navigate(['/caff-posts/upload']);
+  }
 }
