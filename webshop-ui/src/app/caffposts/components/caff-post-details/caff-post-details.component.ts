@@ -31,14 +31,14 @@ export class CaffPostDetailsComponent implements OnInit {
     });
 
     caffPostsService.getComments(this.selectedId)
-        .subscribe(data => {
-          this.comments = [];
-          for (const id in data) {
-            if (data.hasOwnProperty(id)) {
-              this.comments.push(data[id]);
-            }
-          }
-        });
+      .subscribe(data => {
+        this.comments = data;
+        // for (const id in data) {
+        //   if (data.hasOwnProperty(id)) {
+        //     this.comments.push(data[id]);
+        //   }
+        // }
+      });
   }
 
   ngOnInit(): void {

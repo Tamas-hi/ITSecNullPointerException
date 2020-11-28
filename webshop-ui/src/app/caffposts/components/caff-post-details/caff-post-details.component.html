@@ -14,10 +14,11 @@
       </mat-form-field>
       <a mat-raised-button color="primary" (click)="comment(searchText.value)">Comment</a>
     </mat-card>
-    <mat-card class="comment-card" *ngFor="let comment of comments">
-      Comment:{{comment.text}}
-      from:{{comment.user.name}}
-      sent:{{comment.createdAt}}
-    </mat-card>
   </mat-card>
+</div>
+
+<div class="comment-card" *ngFor="let comment of comments">
+  <span>Comment:{{comment.text}}</span>
+  <span>from:{{comment.user.name}}</span>
+  <span>sent:{{comment.createdAt}}</span>
 </div>

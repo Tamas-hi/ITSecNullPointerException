@@ -1,7 +1,9 @@
 package com.webshop.controller;
 
+import com.webshop.model.CaffFile;
 import com.webshop.model.CaffPost;
 import com.webshop.repository.UserRepository;
+import com.webshop.service.CaffFileService;
 import com.webshop.service.CaffPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,8 @@ public class CaffPostController {
 
     UserRepository userRepository;
 
+    CaffFileService caffFileService;
+
     @Autowired
     public void setCaffPostService(CaffPostService caffPostService) {
         this.caffPostService = caffPostService;
@@ -31,6 +35,11 @@ public class CaffPostController {
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    @Autowired
+    public void setCaffFileService(CaffFileService caffFileService) {
+        this.caffFileService = caffFileService;
     }
 
     @RequestMapping("/search")
@@ -92,6 +101,8 @@ public class CaffPostController {
         caffPost.setTags(result.tags);
 
         CaffPost savedCaffPost = caffPostService.uploadCaff(caffPost);
+
+        this.caffFileService.saveCaffFile(savedCaffPost, uploadedByteArray);
 
         return new ResponseEntity<>(savedCaffPost.getId(), HttpStatus.OK);
     }

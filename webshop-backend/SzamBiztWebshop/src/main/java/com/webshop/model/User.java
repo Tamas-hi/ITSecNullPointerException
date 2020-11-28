@@ -112,10 +112,12 @@ public class User {
         this.caffPosts = caffPosts;
     }
 
+    @JsonIgnore
     public List<Comment> getComments() {
         return comments;
     }
 
+    @JsonIgnore
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }

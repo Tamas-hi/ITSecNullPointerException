@@ -32,12 +32,12 @@ export class CaffPostsService {
     return this.http.get<CaffPost[]>('/api/search' + '?title=' + searchBy); // TODO más url
   }
 
-  public getComments(caffPostId: string): Observable<Comment[]>{
-    return this.http.get<Comment[]>('/comments/' + caffPostId);
+  public getComments(caffPostId: string): Observable<Comment[]> {
+    return this.http.get<Comment[]>('/api/comments/' + caffPostId);
   }
 
-  public comment(caffPostId: number, userId: number, comment: string): Observable<void>{
-    return this.http.post<void>('/comments/' + caffPostId + '/' + userId, comment);
+  public comment(caffPostId: number, userId: number, comment: string): Observable<void> {
+    return this.http.post<void>('/api/comments/' + caffPostId + '/' + userId, comment);
   }
 
 }

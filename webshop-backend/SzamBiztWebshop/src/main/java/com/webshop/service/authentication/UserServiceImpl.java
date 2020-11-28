@@ -62,7 +62,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public ResponseEntity<UserDetails> login(User requestUser) {
         UsernamePasswordAuthenticationToken authenticationTokenRequest = new UsernamePasswordAuthenticationToken(requestUser.getEmail(), requestUser.getPassword());
-        System.out.println(authenticationTokenRequest);
+
         try {
             Authentication authentication = this.authenticationManager.authenticate(authenticationTokenRequest);
             SecurityContext securityContext = SecurityContextHolder.getContext();
