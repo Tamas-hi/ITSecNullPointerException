@@ -90,15 +90,15 @@ class SzamBiztWebshopApplicationTests {
     	verify(caffPostRepository).save(any(caffPost.getClass()));
     }
     
-    @Test
-    public void testGetCaffByTitle() {
-    	final String title = "title";
-    	final CaffPost post = new CaffPost(1L, "content".getBytes(), "title", new Date(), new User());
-    	
-    	given(caffPostRepository.findCaffPostByTitle(title)).willReturn(post);
-    	final CaffPost expected = caffPostServiceImpl.findCaffByTitle(title);
-    	assertThat(expected).isNotNull();
-    }
+//    @Test
+//    public void testGetCaffByTitle() {
+//    	final String title = "title";
+//    	final CaffPost post = new CaffPost(1L, "content".getBytes(), "title", new Date(), new User());
+//
+//    	given(caffPostRepository.findCaffPostByTitle(title)).willReturn(post);
+//    	final CaffPost expected = caffPostServiceImpl.findCaffByTitle(title);
+//    	assertThat(expected).isNotNull();
+//    }
     
     @Test
     public void testGetUsers() {

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {CaffPost} from "../../models/caff-post.model";
 
 @Component({
   selector: 'app-caff-file-searcher',
@@ -16,13 +17,17 @@ export class CaffFileSearcherComponent implements OnInit {
 
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {
 
-    this.http.get('./assets/data.json') // TODO backenden getall url-je
-      .subscribe(data => {
+    this.http.get('api/getAll') // TODO backenden getall url-je
+      .subscribe((caffPosts: CaffPost[]) => {
 
-        for (const id in data) {
-          if (data.hasOwnProperty(id)) {
-            this.jsonData.push(data[id]);
-            this.byteArrayImages.push(data[id].content);
+        caffPosts.forEach(caffPost => {
+
+        });
+
+        for (const id in caffPosts) {
+          if (caffPosts.hasOwnProperty(id)) {
+            this.jsonData.push(caffPosts[id]);
+            this.byteArrayImages.push(caffPosts[id].content);
           }
         }
 

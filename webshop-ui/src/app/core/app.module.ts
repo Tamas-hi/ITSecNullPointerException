@@ -28,11 +28,13 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    loadChildren: () => import('../authentication/authentication.module').then(m => m.AuthenticationModule)
+    loadChildren: () => import('../authentication/authentication.module').then(m => m.AuthenticationModule),
   },
   {
     path: 'caff-posts',
-    loadChildren: () => import('../caffposts/caff-posts.module').then(m => m.CaffPostsModule)
+    loadChildren: () => import('../caffposts/caff-posts.module').then(m => m.CaffPostsModule),
+    canActivate: [AuthenticationService],
+    canLoad: [AuthenticationService]
   },
   {
     path: 'admin',

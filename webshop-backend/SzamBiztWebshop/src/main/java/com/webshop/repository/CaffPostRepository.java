@@ -10,5 +10,5 @@ public interface CaffPostRepository extends CrudRepository<CaffPost, Long> {
 	List<CaffPost> findAll();
 	CaffPost findCaffPostById(long id);
 	void deleteCaffPostById(long id);
-	CaffPost findCaffPostByTitle(String title);
+	List<CaffPost> findByTitleContaining(String title);
 }
