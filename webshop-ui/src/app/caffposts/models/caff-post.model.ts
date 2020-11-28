@@ -1,4 +1,5 @@
 import {User} from '../../authentication/models/user.model';
+import {Comment} from './comment.module';
 
 export class CaffPost {
   public id: number;
@@ -14,4 +15,6 @@ export class CaffPost {
   public caption: string;
 
   public tags: string[];
+
+  public comments: Comment[];
 }
