@@ -11,7 +11,7 @@ import com.webshop.model.CaffPost;
 import com.webshop.repository.CaffPostRepository;
 
 @Service
-public class CaffPostServiceImpl {
+public class CaffPostService {
 
     CaffPostRepository caffPostRepository;
 

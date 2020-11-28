@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -26,7 +25,7 @@ import com.webshop.model.Role;
 import com.webshop.model.User;
 import com.webshop.repository.CaffPostRepository;
 import com.webshop.repository.UserRepository;
-import com.webshop.service.CaffPostServiceImpl;
+import com.webshop.service.CaffPostService;
 import com.webshop.service.authentication.UserServiceImpl;
 
 @SpringBootTest(classes = SzamBiztWebshopApplication.class)
@@ -40,7 +39,7 @@ class SzamBiztWebshopApplicationTests {
 	UserRepository userRepository;
 	
 	@InjectMocks
-	CaffPostServiceImpl caffPostServiceImpl;
+	CaffPostService caffPostService;
 	
 	@InjectMocks
 	UserServiceImpl userServiceImpl;
@@ -58,7 +57,7 @@ class SzamBiztWebshopApplicationTests {
     	posts.add(new CaffPost(3L, "content2".getBytes(), "title2", new Date(), new User()));
     	
     	when(caffPostRepository.findAll()).thenReturn(posts);
-    	List<CaffPost> newPosts = caffPostServiceImpl.getPosts();
+    	List<CaffPost> newPosts = caffPostService.getPosts();
     	assertEquals(newPosts, posts);
     }
     
@@ -68,7 +67,7 @@ class SzamBiztWebshopApplicationTests {
     	final CaffPost post = new CaffPost(1L, "content".getBytes(), "title", new Date(), new User());
     	
     	given(caffPostRepository.findCaffPostById(id)).willReturn(post);
-    	final CaffPost expected = caffPostServiceImpl.findCaffById(id);
+    	final CaffPost expected = caffPostService.findCaffById(id);
     	assertThat(expected).isNotNull();
     	
     }
@@ -76,8 +75,8 @@ class SzamBiztWebshopApplicationTests {
     @Test
     public void testDeletePost() {
     	final long caffPostId = 1L;
-    	caffPostServiceImpl.deleteCaffById(caffPostId);
-    	caffPostServiceImpl.deleteCaffById(caffPostId);
+    	caffPostService.deleteCaffById(caffPostId);
+    	caffPostService.deleteCaffById(caffPostId);
     	
     	verify(caffPostRepository, times(2)).deleteCaffPostById(caffPostId);
     }
@@ -86,7 +85,7 @@ class SzamBiztWebshopApplicationTests {
     public void testUploadPost() {
     	final CaffPost caffPost = new CaffPost(1L, "content".getBytes(), "title", new Date(), new User());
     	given(caffPostRepository.save(caffPost)).willReturn(caffPost);
-    	caffPostServiceImpl.uploadCaff(caffPost);
+    	caffPostService.uploadCaff(caffPost);
     	verify(caffPostRepository).save(any(caffPost.getClass()));
     }
     

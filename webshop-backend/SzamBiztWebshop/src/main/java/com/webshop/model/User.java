@@ -12,10 +12,10 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "users", uniqueConstraints=@UniqueConstraint(columnNames= {"email"}))
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
 public class User {
 
-	@GeneratedValue
+    @GeneratedValue
     @Id
     private long id;
 
@@ -28,39 +28,41 @@ public class User {
 
     private String name;
 
-    @ManyToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER )
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
-            joinColumns = {@JoinColumn(name="user_id")},
-            inverseJoinColumns = {@JoinColumn(name="role_id")}
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
     protected Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
     private List<CaffPost> caffPosts;
 
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments;
 
-	public void addRoles(String roleName) {
-        if(this.roles == null || this.roles.isEmpty())
+    public void addRoles(String roleName) {
+        if (this.roles == null || this.roles.isEmpty())
             this.roles = new HashSet<>();
 
         this.roles.add(new Role(roleName));
     }
-	
-	  public User(long id, String email, String password, String name, Set<Role> roles, List<CaffPost> caffPosts) {
-			super();
-			this.id = id;
-			this.email = email;
-			this.password = password;
-			this.name = name;
-			this.roles = roles;
-			this.caffPosts = caffPosts;
-		}
+
+    public User(long id, String email, String password, String name, Set<Role> roles, List<CaffPost> caffPosts) {
+        super();
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.roles = roles;
+        this.caffPosts = caffPosts;
+    }
 
     public User() {
-	}
+    }
 
-	public long getId() {
+    public long getId() {
         return id;
     }
 
@@ -75,7 +77,7 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     @JsonIgnore
     public String getPassword() {
         return password;
@@ -108,5 +110,13 @@ public class User {
 
     public void setCaffPosts(List<CaffPost> caffPosts) {
         this.caffPosts = caffPosts;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }
