@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SnackBarHelperUtil} from 'src/app/core/utils/snack-bar-helper.util';
 import {User} from "../../models/user.model";
+import {MESSAGE_SUCCESSFUL_LOGIN, MESSAGE_UNSUCCESSFUL_LOGIN} from "../../constants";
 
 @Component({
   selector: 'app-login',
@@ -42,10 +43,10 @@ export class LoginComponent implements OnInit {
 
       this.authenticationService.login(user).subscribe(() => {
         this.router.navigateByUrl('/home').then(
-          () => SnackBarHelperUtil.showMessage(this.matSnackBar, 'Sikeres bejelentkezés!'));
+          () => SnackBarHelperUtil.showMessage(this.matSnackBar, MESSAGE_SUCCESSFUL_LOGIN));
       }, error => {
         console.error(error);
-        SnackBarHelperUtil.showMessage(this.matSnackBar, 'Sikertelen bejelentkezés!', true);
+        SnackBarHelperUtil.showMessage(this.matSnackBar, MESSAGE_UNSUCCESSFUL_LOGIN, true);
       });
     }
   }

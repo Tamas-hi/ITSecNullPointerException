@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { SnackBarHelperUtil } from 'src/app/core/utils/snack-bar-helper.util';
-import { AuthenticationService } from 'src/app/authentication/services/authentication.service';
-import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import {User} from "../../models/user.model";
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
+import {SnackBarHelperUtil} from 'src/app/core/utils/snack-bar-helper.util';
+import {AuthenticationService} from 'src/app/authentication/services/authentication.service';
+import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {User} from '../../models/user.model';
+import {
+  MESSAGE_SUCCESSFUL_REGISTRATION,
+  MESSAGE_UNSUCCESSFUL_REGISTRATION
+} from '../../constants';
 
 @Component({
   selector: 'app-register',
@@ -25,10 +29,11 @@ export class RegisterComponent implements OnInit {
   }
 
   constructor(
-      private authenticationService: AuthenticationService,
-      private router: Router,
-      private matSnackBar: MatSnackBar
-  ) { }
+    private authenticationService: AuthenticationService,
+    private router: Router,
+    private matSnackBar: MatSnackBar
+  ) {
+  }
 
   public ngOnInit(): void {
   }
@@ -44,10 +49,10 @@ export class RegisterComponent implements OnInit {
 
       this.authenticationService.register(user).subscribe(() => {
         this.router.navigateByUrl('/').then(
-            () => SnackBarHelperUtil.showMessage(this.matSnackBar, 'Sikeres regisztráció!'));
+          () => SnackBarHelperUtil.showMessage(this.matSnackBar, MESSAGE_SUCCESSFUL_REGISTRATION));
       }, error => {
         console.error(error);
-        SnackBarHelperUtil.showMessage(this.matSnackBar, 'Sikertelen regisztráció!', true);
+        SnackBarHelperUtil.showMessage(this.matSnackBar, MESSAGE_UNSUCCESSFUL_REGISTRATION, true);
       });
     }
   }
