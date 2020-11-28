@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {map} from 'rxjs/operators';
+import {CaffPostsService} from "../../services/caff-posts.service";
+import {CaffPost} from "../../models/caff-post.model";
 
 @Component({
   selector: 'app-caff-post-details',
@@ -12,12 +14,17 @@ export class CaffPostDetailsComponent implements OnInit {
   testComments: string[] = ['wow', 'very comment', 'much wow', 'very big commentasdasdasdasdasdsadasd', 'kecske', 'heoheoheo sziasztok', ':))))))))))'];
   selectedId: any;
 
-  constructor(route: ActivatedRoute) {
+  public get selectedCaffPost(): Partial<CaffPost> {
+    return this.caffPostsService.selectedCaffPost;
+  }
+
+  constructor(
+    private route: ActivatedRoute,
+    private caffPostsService: CaffPostsService
+  ) {
     route.params.subscribe(params => {
       this.selectedId = params['id'];
     });
-   // console.log(route.params.value.id);
-    console.log(this.selectedId);
   }
 
   ngOnInit(): void {
@@ -27,7 +34,7 @@ export class CaffPostDetailsComponent implements OnInit {
     console.log(this.selectedId);
   }
 
-  comment(comment: string) {
+  public comment(comment: string): void {
     console.log(comment);
   }
 }

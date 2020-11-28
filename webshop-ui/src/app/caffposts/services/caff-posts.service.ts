@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
@@ -13,11 +13,8 @@ import {CaffPost} from '../models/caff-post.model';
 })
 export class CaffPostsService {
 
-
-  public imagesFromByteArray = [];
   public jsonData = [];
-  public byteArrayImages = [];
-  public photo: SafeResourceUrl;
+  public selectedCaffPost: Partial<CaffPost>;
 
   constructor(
     private http: HttpClient,
@@ -25,12 +22,12 @@ export class CaffPostsService {
     private router: Router
   ) {
   }
+
   public getAll(): Observable<CaffPost[]> {
     return this.http.get<CaffPost[]>('/api/getAll');
-   }
-
-  public search(searchBy: string): Observable<CaffPost[]>{
-    return this.http.get<CaffPost[]>('/api/search' + '?title=' + searchBy); // TODO más url
   }
 
+  public search(searchBy: string): Observable<CaffPost[]> {
+    return this.http.get<CaffPost[]>('/api/search' + '?title=' + searchBy); // TODO más url
+  }
 }
