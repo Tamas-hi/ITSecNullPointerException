@@ -8,6 +8,7 @@ import {CaffFileUploadComponent} from './components/caff-file-upload/caff-file-u
 import {MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
 import {FlexModule} from "@angular/flex-layout";
+import { CaffPostDetailsComponent } from './components/caff-post-details/caff-post-details.component';
 
 const routes: Routes = [
   {
@@ -16,13 +17,17 @@ const routes: Routes = [
   }, {
     path: 'upload',
     component: CaffFileUploadComponent
+  }, {
+    path: ':id',
+    component: CaffPostDetailsComponent
   }
 ];
 
 @NgModule({
-  declarations: [CaffFileSearcherComponent, CaffFileUploadComponent],
+  declarations: [CaffFileSearcherComponent, CaffFileUploadComponent, CaffPostDetailsComponent],
   imports: [
     MatCardModule,
+    MatInputModule,
     CommonModule,
     RouterModule.forChild(routes),
     MatButtonModule,

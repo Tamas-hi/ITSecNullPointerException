@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {CaffPost} from "../../models/caff-post.model";
+import {DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
+import {CaffPostsService} from '../../services/caff-posts.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-caff-file-searcher',
@@ -15,31 +15,43 @@ export class CaffFileSearcherComponent implements OnInit {
   public byteArrayImages = [];
   public photo: SafeResourceUrl;
 
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer) {
+  constructor(private caffpostservice: CaffPostsService, private sanitizer: DomSanitizer, private router: Router) {
 
-    this.http.get('api/getAll') // TODO backenden getall url-je
-      .subscribe((caffPosts: CaffPost[]) => {
-
-        caffPosts.forEach(caffPost => {
-
-        });
-
-        for (const id in caffPosts) {
-          if (caffPosts.hasOwnProperty(id)) {
-            this.jsonData.push(caffPosts[id]);
-            this.byteArrayImages.push(caffPosts[id].content);
+    caffpostservice.getAll() // TODO backenden getall url-je
+      .subscribe(data => {
+        console.log(data);
+        for (const id in data) {
+          if (data.hasOwnProperty(id)) {
+            this.byteArrayImages.push(data[id]);
           }
         }
-
+        console.log(this.byteArrayImages);
         for (const index in this.byteArrayImages) {
-          this.convertImagesFromByteArray(this.byteArrayImages[index]);
+          this.byteArrayImages[index].content = this.convertImagesFromByteArray(this.byteArrayImages[index].content);
         }
       });
-
   }
 
   public ngOnInit(): void {
 
+  }
+
+  public searchByString(serachBy: string): void {
+    this.caffpostservice.search(serachBy) // TODO backenden getall url-je
+      .subscribe(data => {
+        console.log(data);
+        this.byteArrayImages = [];
+        this.imagesFromByteArray = [];
+        for (const id in data) {
+          if (data.hasOwnProperty(id)) {
+            this.byteArrayImages.push(data[id]);
+          }
+        }
+
+        for (const index in this.byteArrayImages) {
+          this.byteArrayImages[index].content = this.convertImagesFromByteArray(this.byteArrayImages[index]);
+        }
+      });
   }
 
   public download(id: number): void {
@@ -51,9 +63,13 @@ export class CaffFileSearcherComponent implements OnInit {
       'data:image/jpeg;base64,' + data);
   }
 
-  public convertImagesFromByteArray(data: string): void {
-    const image = this.sanitizer.bypassSecurityTrustResourceUrl(
+  public convertImagesFromByteArray(data: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(
       'data:image/jpeg;base64,' + data);
-    this.imagesFromByteArray.push(image);
+  }
+
+  comments(id: number): void {
+    this.router.navigate(['/caff-posts/' + id]);
   }
 }
+

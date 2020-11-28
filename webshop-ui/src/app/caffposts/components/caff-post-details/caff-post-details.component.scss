@@ -1,0 +1,37 @@
+.left-card {
+  max-width: 600px;
+  display: inline-block;
+}
+.image-class{
+  margin:10px;
+  max-width:600px;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.right-card {
+  max-width: 600px;
+  display: inline-block;
+  margin:10px;
+}
+.download-button{
+  position: absolute;
+  right: 20px;
+}
+.download-card{
+  margin: 5px;
+  padding: 40px;
+}
+.comment-card{
+  margin: 5px;
+}
+.title{
+  width:200px !important;
+}
