@@ -1,10 +1,8 @@
 package com.webshop.controller;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webshop.model.CaffPost;
 import com.webshop.repository.UserRepository;
-import com.webshop.service.CaffPostServiceImpl;
+import com.webshop.service.CaffPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.imageio.ImageIO;
@@ -27,13 +19,13 @@ import javax.imageio.ImageIO;
 @RequestMapping("/api")
 public class CaffPostController {
 
-    CaffPostServiceImpl caffPostServiceImpl;
+    CaffPostService caffPostService;
 
     UserRepository userRepository;
 
     @Autowired
-    public void setCaffPostService(CaffPostServiceImpl caffPostServiceImpl) {
-        this.caffPostServiceImpl = caffPostServiceImpl;
+    public void setCaffPostService(CaffPostService caffPostService) {
+        this.caffPostService = caffPostService;
     }
 
     @Autowired
@@ -43,22 +35,22 @@ public class CaffPostController {
 
     @RequestMapping("/search")
     public ResponseEntity<List<CaffPost>> searchCaffByTitle(@RequestParam String title) {
-        return new ResponseEntity<>(caffPostServiceImpl.findCaffByTitle(title), HttpStatus.OK);
+        return new ResponseEntity<>(caffPostService.findCaffByTitle(title), HttpStatus.OK);
     }
 
     @RequestMapping("/getAll")
     public ResponseEntity<List<CaffPost>> getAllCaff() {
-        return new ResponseEntity<>(caffPostServiceImpl.getPosts(), HttpStatus.OK);
+        return new ResponseEntity<>(caffPostService.getPosts(), HttpStatus.OK);
     }
 
     @RequestMapping("/get/{id}")
     public ResponseEntity<CaffPost> findCaffById(@PathVariable long id) {
-        return new ResponseEntity<>(caffPostServiceImpl.findCaffById(id), HttpStatus.OK);
+        return new ResponseEntity<>(caffPostService.findCaffById(id), HttpStatus.OK);
     }
 
     @RequestMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteCaffById(@PathVariable long id) {
-        caffPostServiceImpl.deleteCaffById(id);
+        caffPostService.deleteCaffById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -90,11 +82,16 @@ public class CaffPostController {
         CaffPost caffPost = new CaffPost();
         caffPost.setContent(bytes);
         caffPost.setPosted(new Date());
-        caffPost.setUser(userRepository.findById(userId).get());
+
+        if (userRepository.findById(userId).isPresent()) {
+            caffPost.setUser(userRepository.findById(userId).get());
+        }
+
+        caffPost.setCreatorName(result.creator_name);
         caffPost.setCaption(result.caption);
         caffPost.setTags(result.tags);
 
-        CaffPost savedCaffPost = caffPostServiceImpl.uploadCaff(caffPost);
+        CaffPost savedCaffPost = caffPostService.uploadCaff(caffPost);
 
         return new ResponseEntity<>(savedCaffPost.getId(), HttpStatus.OK);
     }
@@ -104,9 +101,9 @@ public class CaffPostController {
             @PathVariable long caffPostId,
             @RequestBody String title
     ) {
-        CaffPost editableCaffPost = caffPostServiceImpl.findCaffById(caffPostId);
+        CaffPost editableCaffPost = caffPostService.findCaffById(caffPostId);
         editableCaffPost.setTitle(title);
-        caffPostServiceImpl.updateTitle(editableCaffPost);
+        caffPostService.updateTitle(editableCaffPost);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
