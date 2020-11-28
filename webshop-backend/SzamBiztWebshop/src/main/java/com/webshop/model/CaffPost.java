@@ -1,17 +1,11 @@
 package com.webshop.model;
 
-import java.awt.image.BufferedImage;
-import java.sql.Blob;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -29,7 +23,7 @@ public class CaffPost{
 	private String title;
 	
 	@Lob
-	@Column
+	@Column(columnDefinition="MEDIUMBLOB")
 	private byte[] content;
 	@Column
 	private Date posted;
@@ -37,6 +31,13 @@ public class CaffPost{
 	@JsonBackReference
 	@ManyToOne
 	private User user;
+	
+	@Column
+    public String creator_name;
+	@Column
+    public String caption;
+	@Column
+    public String[] tags;
 	
 	public CaffPost() {
 	}
@@ -87,6 +88,30 @@ public class CaffPost{
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public String getCreator_name() {
+		return creator_name;
+	}
+
+	public void setCreator_name(String creator_name) {
+		this.creator_name = creator_name;
+	}
+
+	public String getCaption() {
+		return caption;
+	}
+
+	public void setCaption(String caption) {
+		this.caption = caption;
+	}
+
+	public String[] getTags() {
+		return tags;
+	}
+
+	public void setTags(String[] tags) {
+		this.tags = tags;
 	}
 
 }

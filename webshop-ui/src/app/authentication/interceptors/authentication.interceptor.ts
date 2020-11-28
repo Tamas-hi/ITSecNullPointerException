@@ -1,29 +1,36 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor, HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable, throwError} from 'rxjs';
+import {catchError} from 'rxjs/operators';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {SnackBarHelperUtil} from '../../core/utils/snack-bar-helper.util';
+import {MESSAGE_NOT_ALLOWED, MESSAGE_LOG_IN_NEEDED, MESSAGE_UNSUCCESSFUL_LOGIN} from '../constants';
+import {AuthenticationService} from "../services/authentication.service";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor(
+    private matSnackBar: MatSnackBar,
+    private authenticationService: AuthenticationService,
+    private router: Router
+  ) {
+  }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const idToken = localStorage.getItem('id_token');
-
-    if (idToken) {
-      const cloned = request.clone({
-        headers: request.headers.set('Authorization', 'Bearer ' + idToken)
-      });
-
-      return next.handle(cloned);
-    }
-    else {
-      return next.handle(request);
-    }
+    return next.handle(request).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 403) {
+          SnackBarHelperUtil.showMessage(this.matSnackBar, MESSAGE_NOT_ALLOWED, true);
+        }
+        return throwError(error);
+      })
+    );
   }
 }
