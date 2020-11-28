@@ -7,7 +7,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.webshop.controller.CaffData;
 import com.webshop.model.CaffPost;
 import com.webshop.repository.CaffPostRepository;
 
@@ -25,6 +24,7 @@ public class CaffPostServiceImpl {
 		return caffPostRepository.findAll();
 	}
 	
+	@Transactional
 	public CaffPost findCaffById(long id){
 		return caffPostRepository.findCaffPostById(id);
 	}
@@ -36,5 +36,9 @@ public class CaffPostServiceImpl {
 	
 	public void uploadCaff(CaffPost caffPost) {
 		caffPostRepository.save(caffPost);
+	}
+
+	public CaffPost findCaffByTitle(String title) {
+		return caffPostRepository.findCaffPostByTitle(title);
 	}
 }

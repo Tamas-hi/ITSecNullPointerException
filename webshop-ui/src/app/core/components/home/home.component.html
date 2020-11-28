@@ -1,0 +1,4 @@
+<div class="welcome-container">
+  <mat-card *ngIf="loggedInUser !== undefined">Üdv {{ loggedInUser.name }}!</mat-card>
+  <button mat-button (click)="doProblem()">Csinálj bajt</button>
+</div>

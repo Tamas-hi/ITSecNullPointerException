@@ -1,23 +1,29 @@
 <form [formGroup]="registerForm" fxLayout="column" fxLayoutAlign="space-around center">
-    <h1>Regisztráció</h1>
+  <h1>Regisztráció</h1>
 
-    <mat-form-field>
-        <mat-label>Felhasználónév</mat-label>
-        <input matInput formControlName="userName" required>
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>Név</mat-label>
+    <input matInput formControlName="name" required type="text">
+  </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>Jelszó</mat-label>
-        <input matInput type="password" formControlName="password" required>
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" required type="email">
+  </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>Jelszó újra</mat-label>
-        <input matInput type="password" formControlName="passwordAgain" required>
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>Jelszó</mat-label>
+    <input matInput type="password" formControlName="password" required>
+  </mat-form-field>
 
-    <button mat-raised-button color="primary" [disabled]="isLoginButtonDisabled">Regisztráció</button>
+  <mat-form-field>
+    <mat-label>Jelszó újra</mat-label>
+    <input matInput type="password" formControlName="passwordAgain" required>
+  </mat-form-field>
 
-    <a routerLink="/auth/login">Van már fiókja? Jelentkezzen be itt!</a>
+  <button mat-raised-button color="primary" [disabled]="isLoginButtonDisabled" (click)="register()">Regisztráció
+  </button>
+
+  <a routerLink="/auth/login">Van már fiókja? Jelentkezzen be itt!</a>
 
 </form>
