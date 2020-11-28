@@ -24,6 +24,10 @@ export class CaffPostsService {
   ) {
   }
 
+  public getById(caffPostId: number): Observable<CaffPost>{
+    return this.http.get<CaffPost>('/api/caff-posts/' + caffPostId);
+  }
+
   public getAll(): Observable<CaffPost[]> {
     return this.http.get<CaffPost[]>('/api/getAll');
   }

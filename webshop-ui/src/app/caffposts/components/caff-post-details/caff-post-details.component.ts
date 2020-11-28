@@ -5,6 +5,7 @@ import {CaffPostsService} from '../../services/caff-posts.service';
 import {CaffPost} from '../../models/caff-post.model';
 import {Comment} from '../../models/comment.module';
 import {AuthenticationService} from '../../../authentication/services/authentication.service';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-caff-post-details',
@@ -13,21 +14,26 @@ import {AuthenticationService} from '../../../authentication/services/authentica
 })
 export class CaffPostDetailsComponent implements OnInit {
 
-//  testComments: string[] = ['wow', 'very comment', 'much wow', 'very big commentasdasdasdasdasdsadasd', 'kecske', 'heoheoheo sziasztok', ':))))))))))'];
   selectedId: any;
   comments: Comment[];
+  public selectedCaffPost;
 
-  public get selectedCaffPost(): Partial<CaffPost> {
-    return this.caffPostsService.selectedCaffPost;
-  }
+ // public get selectedCaffPost(): Partial<CaffPost> {
+ //   return this.caffPostsService.selectedCaffPost;
+ // }
 
   constructor(
     private route: ActivatedRoute,
     private caffPostsService: CaffPostsService,
-    private authentiacionService: AuthenticationService
+    private authentiacionService: AuthenticationService,
+    private http: HttpClient
   ) {
     route.params.subscribe(params => {
       this.selectedId = params.id;
+      caffPostsService.getById(this.selectedId)
+        .subscribe(data => {
+          this.selectedCaffPost = data;
+        });
     });
 
     caffPostsService.getComments(this.selectedId)
