@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 
@@ -111,8 +112,16 @@ public class UserServiceImpl implements IUserService {
     public List<User> getAllUsers() {
         return (List<User>) userRepository.findAll();
     }
-    
-    public Set<Role> getUserRoleById(long id){
-    	return userRepository.getUserById(id).getRoles();
+
+    public User getUserById(long id) {
+        User user = userRepository.getUserById(id);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        if (!user.getEmail().equals(userDetails.getUsername())) {
+            throw new BadCredentialsException("The requested user id is not the logged in user's id.");
+        }
+
+        return userRepository.getUserById(id);
     }
 }
