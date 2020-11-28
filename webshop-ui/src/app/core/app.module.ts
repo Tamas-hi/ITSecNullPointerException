@@ -31,6 +31,14 @@ const routes: Routes = [
     loadChildren: () => import('../authentication/authentication.module').then(m => m.AuthenticationModule)
   },
   {
+    path: 'caff-posts',
+    loadChildren: () => import('../caffposts/caff-posts.module').then(m => m.CaffPostsModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('../admin/admin.module').then(m => m.AdminModule)
+  },
+  {
     path: '**',
     redirectTo: '/home',
     pathMatch: 'full'

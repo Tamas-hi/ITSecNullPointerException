@@ -1,0 +1,15 @@
+<p>cafffilesearcher works!</p>
+
+<mat-card class="example-card" *ngFor="let image of imagesFromByteArray">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>caffpost.title</mat-card-title>
+    <!--      <mat-card-subtitle> </mat-card-subtitle>-->
+    <mat-card-subtitle>user.name</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image [src]=image alt="imageFromByteArray">
+  <mat-card-actions>
+    <button mat-button (click)=download(1)>Download</button>
+    <button mat-button>Comment</button>
+  </mat-card-actions>
+</mat-card>
