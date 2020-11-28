@@ -1,7 +1,15 @@
-<p>Caff File Upload</p>
+<div class="title-container">
+  <mat-card>Caff File Upload</mat-card>
+  <form [formGroup]="caffPostForm" fxLayout="column">
+    <mat-form-field class="spacer">
+      <mat-label>Kép címe</mat-label>
+      <input matInput formControlName="title" required>
+    </mat-form-field>
 
-<br>
-<input type="file" multiple (change)="onFileSelected($event)">
-<button mat-raised-button color="primary" class="spacer"
-        (click)="upload()">Upload
-</button>
+    <input type="file" multiple (change)="uploadFileInputChanged($event)">
+    <button mat-raised-button color="primary" class="spacer" (click)="uploadFile()"
+            [disabled]="isUploadButtonDisabled">Upload
+    </button>
+  </form>
+</div>
+

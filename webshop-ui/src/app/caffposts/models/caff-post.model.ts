@@ -5,7 +5,7 @@ export class CaffPost {
 
   public title: string;
 
-  public content: Blob;
+  public content: any;
 
   public posted: Date;
 

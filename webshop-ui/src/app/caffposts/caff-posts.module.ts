@@ -5,7 +5,9 @@ import {RouterModule, Routes} from '@angular/router';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {CaffFileUploadComponent} from './components/caff-file-upload/caff-file-upload.component';
-import {MatInputModule} from '@angular/material/input';
+import {MatInputModule} from "@angular/material/input";
+import {ReactiveFormsModule} from "@angular/forms";
+import {FlexModule} from "@angular/flex-layout";
 import { CaffPostDetailsComponent } from './components/caff-post-details/caff-post-details.component';
 
 const routes: Routes = [
@@ -28,7 +30,10 @@ const routes: Routes = [
     MatInputModule,
     CommonModule,
     RouterModule.forChild(routes),
-    MatButtonModule
+    MatButtonModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    FlexModule
   ]
 })
 export class CaffPostsModule {
