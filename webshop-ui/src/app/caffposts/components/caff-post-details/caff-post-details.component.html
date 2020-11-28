@@ -1,0 +1,21 @@
+<div >
+  <mat-card class="left-card">
+    <img mat-card-image class="image-class" src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+         alt="Photo of a Shiba Inu">
+<!--    <mat-card class="download-card">-->
+    <mat-card align="center">
+      Title
+      <a mat-raised-button color="primary" (click)="download(1)">Download</a>
+<!--      <a mat-raised-button class="download-button" color="primary" (click)="download(1)">Download</a>-->
+    </mat-card>
+    <mat-card class="comment-card" align="center">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Write your comment here..." #searchText>
+      </mat-form-field>
+      <a mat-raised-button color="primary" (click)="comment(searchText.value)">Comment</a>
+    </mat-card>
+    <mat-card class="comment-card" *ngFor="let comment of testComments">
+      {{comment}}
+    </mat-card>
+  </mat-card>
+</div>
