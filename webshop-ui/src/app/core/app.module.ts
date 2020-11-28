@@ -13,8 +13,8 @@ const routes: Routes = [
     loadChildren: () => import('../authentication/authentication.module').then(m => m.AuthenticationModule)
   },
   {
-    path: 'caffposts',
-    loadChildren: () => import('../caffposts/caffposts.module').then(m => m.CaffpostsModule)
+    path: 'caff-posts',
+    loadChildren: () => import('../caffposts/caff-posts.module').then(m => m.CaffPostsModule)
   },
   {
     path: 'admin',

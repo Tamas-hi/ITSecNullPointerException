@@ -1,19 +1,18 @@
-package com.webshop.service;
+package com.webshop.service.authentication;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.webshop.model.Role;
 import com.webshop.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.webshop.model.Role;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public class UserDetailsImpl implements UserDetails {
-	private static final long serialVersionUID = 3185970362329652822L;
-
+	private static final long serialVersionUID = 1L;
 	private final User user;
 
 	public UserDetailsImpl(User user) {
@@ -30,9 +29,10 @@ public class UserDetailsImpl implements UserDetails {
 		return authorities;
 	}
 
+	@JsonIgnore
 	@Override
 	public String getPassword() {
-		return "{noop}" + user.getPassword();
+		return user.getPassword();
 	}
 
 	@Override
@@ -40,21 +40,25 @@ public class UserDetailsImpl implements UserDetails {
 		return user.getEmail();
 	}
 
+	@JsonIgnore
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
 	}
 
+	@JsonIgnore
 	@Override
 	public boolean isAccountNonLocked() {
 		return true;
 	}
 
+	@JsonIgnore
 	@Override
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
 
+	@JsonIgnore
 	@Override
 	public boolean isEnabled() {
 		return true;

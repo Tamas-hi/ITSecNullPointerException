@@ -1,19 +1,19 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CaffpostsComponent } from './caffposts/caffposts.component';
-import {RouterModule, Routes} from "@angular/router";
-import {MatCardModule} from "@angular/material/card";
-import {MatButtonModule} from "@angular/material/button";
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {CaffPostsComponent} from './caff-posts/caff-posts.component';
+import {RouterModule, Routes} from '@angular/router';
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
 
 const routes: Routes = [
   {
-    path: 'caffposts',
-    component: CaffpostsComponent
+    path: 'caff-posts',
+    component: CaffPostsComponent
   }
 ];
 
 @NgModule({
-  declarations: [CaffpostsComponent],
+  declarations: [CaffPostsComponent],
   imports: [
     CommonModule,
     MatCardModule,
@@ -21,5 +21,6 @@ const routes: Routes = [
     MatButtonModule
   ]
 })
-export class AdminModule { }
+export class AdminModule {
+}
 

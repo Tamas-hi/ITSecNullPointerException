@@ -6,7 +6,7 @@
 //
 
 #include <iostream>
-#include "com_nullpointerexception_ParserJNI.h"
+#include "com_webshop_controller_CaffPostController.h"
 
 #include <fstream>
 #include <stdio.h>
@@ -260,36 +260,36 @@ CaffReturnData readBlocks(const vector<unsigned char>& v)
         if(block_id == '\x01') {
             std::vector<unsigned char> header_data(&v[i], &v[i + block_length]);
             CaffHeader caff_header = subvectorToHeader(header_data);
-            cout << "--- CAFF HEADER --- \n";
+            /*cout << "--- CAFF HEADER --- \n";
             cout << "Magic: " << caff_header.getMagic() << "\n";
             cout << "Header size: "<< caff_header.getHeader_size() << "\n";
             cout << "Number of animated CIFFs: "<< caff_header.getNum_anim() << "\n";
-            cout << "---\n\n";
+            cout << "---\n\n";*/
         } else if (block_id == '\x02') {
             creditsIsPresent = true;
             std::vector<unsigned char> credits_data(&v[i], &v[i + block_length]);
             CaffCredits caff_credits = subvectorToCredits(credits_data);
-            cout << "--- CAFF CREDITS --- \n";
+            /*cout << "--- CAFF CREDITS --- \n";
             cout << "Year: " << caff_credits.getYY() << "\n";
             cout << "Month: " << (int)caff_credits.getM() << "\n";
             cout << "Day: " << (int)caff_credits.getD() << "\n";
             cout << "Hour: " << (int)caff_credits.getH() << "\n";
             cout << "Minute: " << (int)caff_credits.getMin() << "\n";
             cout << "Length of Creator: " << caff_credits.getCreatorLen() << "\n";
-            cout << "Creator: " << caff_credits.getCreator() << "\n";
+            cout << "Creator: " << caff_credits.getCreator() << "\n";*/
             caff_return.setCreator(string(caff_credits.getCreator()));
-            cout << "---\n\n";
+            //cout << "---\n\n";
         } else if (block_id == '\x03') {
             std::vector<unsigned char> anim_data(&v[i], &v[i + block_length]);
             CaffAnimation caff_animation = subvectorToAnimation(anim_data);
-            cout << "--- CAFF ANIMATION --- \n";
+           /* cout << "--- CAFF ANIMATION --- \n";
             cout << "Block length: " << block_length << "\n";
             cout << "Duration: " << caff_animation.getDuration() << "\n";
             
-            cout << "   *** CIFF HEADER *** \n";
+            cout << "   *** CIFF HEADER *** \n";*/
             std::vector<unsigned char> ciff_data(&v[i + sizeof(int64_t)], &v[i + block_length]);
             CiffHeader ciff_header = subvectorToCiffHeader(ciff_data);
-            cout << "   Magic: " << ciff_header.getMagic() << "\n";
+            /*cout << "   Magic: " << ciff_header.getMagic() << "\n";
             cout << "   Header size: " << ciff_header.getHeader_size() << "\n";
             cout << "   Content size: " << ciff_header.getContent_size() << "\n";
             cout << "   Width: " << ciff_header.getWidth() << "\n";
@@ -300,7 +300,7 @@ CaffReturnData readBlocks(const vector<unsigned char>& v)
             for(int tags_count = 0; tags_count < ciff_header.getTags().size(); tags_count++) {
                 cout << "      Tag " << tags_count <<": " << ciff_header.getTags().at(tags_count) <<"\n";
             }
-            cout << "---\n\n";
+            cout << "---\n\n";*/
             
             caff_return.setWidth(ciff_header.getWidth());
             caff_return.setHeight(ciff_header.getHeight());
@@ -326,10 +326,10 @@ CaffReturnData readBlocks(const vector<unsigned char>& v)
     return caff_return;
 }
 
-JNIEXPORT jobject JNICALL Java_com_nullpointerexception_ParserJNI_readData(JNIEnv * env, jobject, jbyteArray array) {
+JNIEXPORT jobject JNICALL Java_com_webshop_controller_CaffPostController_readData(JNIEnv * env, jobject, jbyteArray array) {
     
     // Create the object of the class CaffData
-    jclass caffDataClass = env->FindClass("com/nullpointerexception/CaffData");
+    jclass caffDataClass = env->FindClass("com/webshop/controller/CaffData");
     jobject newCaffData = env->AllocObject(caffDataClass);
     
     // Get the CaffData fields to be set

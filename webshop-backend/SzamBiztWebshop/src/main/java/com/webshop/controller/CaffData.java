@@ -1,4 +1,4 @@
-package com.webshop.service;
+package com.webshop.controller;
 
 public class CaffData {
     public String creator_name;

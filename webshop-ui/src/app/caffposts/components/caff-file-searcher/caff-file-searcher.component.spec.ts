@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CafffileuploadComponent } from './cafffileupload.component';
+import { CaffFileSearcherComponent } from './caff-file-searcher.component';
 
-describe('CafffileuploadComponent', () => {
-  let component: CafffileuploadComponent;
-  let fixture: ComponentFixture<CafffileuploadComponent>;
+describe('CafffilesearcherComponent', () => {
+  let component: CaffFileSearcherComponent;
+  let fixture: ComponentFixture<CaffFileSearcherComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CafffileuploadComponent ]
+      declarations: [ CaffFileSearcherComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CafffileuploadComponent);
+    fixture = TestBed.createComponent(CaffFileSearcherComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
