@@ -15,6 +15,10 @@ export class AppComponent {
     return !!this.authenticationService.loggedInUser;
   }
 
+  public get isUser(): boolean {
+    return this.authenticationService.isUser;
+  }
+
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,

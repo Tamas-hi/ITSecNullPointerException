@@ -22,10 +22,4 @@ export class HomeComponent implements OnInit {
 
   public ngOnInit(): void {
   }
-
-  doProblem() {
-    this.httpClient.delete('/api/caff-pos/1').subscribe(ans => {
-      console.log('doproblem', ans);
-    });
-  }
 }

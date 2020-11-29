@@ -21,11 +21,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'home',
-    component: HomeComponent,
-    pathMatch: 'full'
-  },
-  {
     path: 'auth',
     loadChildren: () => import('../authentication/authentication.module').then(m => m.AuthenticationModule),
   },

@@ -102,7 +102,7 @@ export class AuthenticationService implements CanLoad, CanActivate {
     }
 
     if (!hasAccess) {
-      this.router.navigate(['/home']).then(() =>
+      this.router.navigate(['/auth/login']).then(() =>
         SnackBarHelperUtil.showMessage(this.matSnackBar, MESSAGE_ACCESS_DENIED, true));
     }
 

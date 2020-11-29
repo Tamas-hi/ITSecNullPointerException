@@ -9,9 +9,9 @@ import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SnackBarHelperUtil} from '../../core/utils/snack-bar-helper.util';
-import {MESSAGE_NOT_ALLOWED, MESSAGE_LOG_IN_NEEDED, MESSAGE_UNSUCCESSFUL_LOGIN} from '../constants';
-import {AuthenticationService} from "../services/authentication.service";
-import {Router} from "@angular/router";
+import {MESSAGE_NOT_ALLOWED} from '../constants';
+import {AuthenticationService} from '../services/authentication.service';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {

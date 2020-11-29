@@ -8,7 +8,7 @@
         filter
     </span>
   </button>
-  <button *ngIf="isAuthenticated" mat-button (click)="upload()">Feltöltés
+  <button *ngIf="isAuthenticated && isUser" mat-button (click)="upload()">Feltöltés
     <span class="material-icons icon-button">
         cloud_upload
     </span>
