@@ -1,8 +1,11 @@
 package com.webshop.controller;
 
+import com.webshop.model.CaffFile;
 import com.webshop.model.CaffPost;
 import com.webshop.repository.UserRepository;
+import com.webshop.service.CaffFileService;
 import com.webshop.service.CaffPostService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +26,8 @@ public class CaffPostController {
 
     UserRepository userRepository;
 
+    CaffFileService caffFileService;
+
     @Autowired
     public void setCaffPostService(CaffPostService caffPostService) {
         this.caffPostService = caffPostService;
@@ -33,28 +38,33 @@ public class CaffPostController {
         this.userRepository = userRepository;
     }
 
-    @RequestMapping("/search")
+    @Autowired
+    public void setCaffFileService(CaffFileService caffFileService) {
+        this.caffFileService = caffFileService;
+    }
+
+    @RequestMapping("/caff-posts/search")
     public ResponseEntity<List<CaffPost>> searchCaffByTitle(@RequestParam String title) {
         return new ResponseEntity<>(caffPostService.findCaffByTitle(title), HttpStatus.OK);
     }
 
-    @RequestMapping("/getAll")
+    @RequestMapping("/caff-posts/all")
     public ResponseEntity<List<CaffPost>> getAllCaff() {
         return new ResponseEntity<>(caffPostService.getPosts(), HttpStatus.OK);
     }
 
-    @RequestMapping("/get/{id}")
+    @RequestMapping(value = "/caff-posts/{id}", method = RequestMethod.GET)
     public ResponseEntity<CaffPost> findCaffById(@PathVariable long id) {
         return new ResponseEntity<>(caffPostService.findCaffById(id), HttpStatus.OK);
     }
 
-    @RequestMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteCaffById(@PathVariable long id) {
+    @RequestMapping(value = "/caff-posts/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<HttpStatus> deleteCaffById(@PathVariable long id) throws NotFoundException {
         caffPostService.deleteCaffById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/upload/{userId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/caff-posts/upload/{userId}", method = RequestMethod.POST)
     public ResponseEntity<Long> uploadCaff(
             @PathVariable long userId,
             @RequestBody byte[] uploadedByteArray
@@ -93,10 +103,12 @@ public class CaffPostController {
 
         CaffPost savedCaffPost = caffPostService.uploadCaff(caffPost);
 
+        this.caffFileService.saveCaffFile(savedCaffPost, uploadedByteArray);
+
         return new ResponseEntity<>(savedCaffPost.getId(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/upload-details/{caffPostId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/caff-posts/upload-details/{caffPostId}", method = RequestMethod.POST)
     public ResponseEntity<HttpStatus> uploadCaff(
             @PathVariable long caffPostId,
             @RequestBody String title

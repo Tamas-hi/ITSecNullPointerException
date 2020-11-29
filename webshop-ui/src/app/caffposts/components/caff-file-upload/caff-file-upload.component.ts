@@ -5,6 +5,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {SnackBarHelperUtil} from '../../../core/utils/snack-bar-helper.util';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MESSAGE_SUCCESSFUL_UPLOAD, MESSAGE_UNSUCCESSFUL_UPLOAD} from '../../constants';
+import {CaffPostsService} from '../../services/caff-posts.service';
 
 @Component({
   selector: 'app-caff-file-upload',
@@ -24,7 +25,8 @@ export class CaffFileUploadComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private authenticationService: AuthenticationService,
-    private matSnackBar: MatSnackBar
+    private matSnackBar: MatSnackBar,
+    private caffPostsService: CaffPostsService
   ) {
   }
 
@@ -50,9 +52,9 @@ export class CaffFileUploadComponent implements OnInit {
     if (this.target) {
       const file = (this.target as HTMLInputElement).files[0];
       this.convertFile(file).then((base64: any): any => {
-        this.http.post<number>(`/api/upload/${this.authenticationService.loggedInUser.id}`, base64).subscribe(id => {
+        this.caffPostsService.uploadCaff(base64).subscribe(id => {
           if (this.caffPostForm.value.title) {
-            this.http.post(`/api/upload-details/${id}`, this.caffPostForm.value.title).subscribe(() => {
+            this.caffPostsService.uploadCaffDetails(id, this.caffPostForm.value.title).subscribe(() => {
               SnackBarHelperUtil.showMessage(this.matSnackBar, MESSAGE_SUCCESSFUL_UPLOAD);
               this.emptyForm();
             }, error => {

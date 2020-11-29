@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   }
 
   doProblem() {
-    this.httpClient.get('/api/delete/1').subscribe(ans => {
+    this.httpClient.delete('/api/caff-pos/1').subscribe(ans => {
       console.log('doproblem', ans);
     });
   }

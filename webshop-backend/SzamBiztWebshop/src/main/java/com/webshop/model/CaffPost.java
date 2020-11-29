@@ -25,7 +25,6 @@ public class CaffPost {
     @Column
     private Date posted;
 
-    @JsonBackReference
     @ManyToOne
     private User user;
 

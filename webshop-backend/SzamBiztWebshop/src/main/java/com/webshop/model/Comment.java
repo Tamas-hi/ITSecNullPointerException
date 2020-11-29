@@ -17,7 +17,6 @@ public class Comment {
     @Column
     private Date createdAt;
 
-    @JsonBackReference
     @ManyToOne
     private User user;
 
@@ -30,6 +29,10 @@ public class Comment {
         this.createdAt = createdAt;
         this.user = user;
         this.caffPost = caffPost;
+    }
+
+    public Comment() {
+
     }
 
     public long getId() {

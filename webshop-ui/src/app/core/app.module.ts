@@ -17,14 +17,13 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/caff-posts',
     pathMatch: 'full'
   },
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [AuthenticationService],
-    canLoad: [AuthenticationService]
+    pathMatch: 'full'
   },
   {
     path: 'auth',
@@ -37,12 +36,8 @@ const routes: Routes = [
     canLoad: [AuthenticationService]
   },
   {
-    path: 'admin',
-    loadChildren: () => import('../admin/admin.module').then(m => m.AdminModule)
-  },
-  {
     path: '**',
-    redirectTo: '/home',
+    redirectTo: '/caff-posts',
     pathMatch: 'full'
   },
 ];

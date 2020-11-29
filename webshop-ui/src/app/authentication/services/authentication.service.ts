@@ -8,6 +8,7 @@ import {KEY_LOGGED_IN_USER_ID, MESSAGE_ACCESS_DENIED, MESSAGE_LOG_IN_NEEDED, URL
 import {UserDetails} from '../models/user-details.model';
 import {SnackBarHelperUtil} from '../../core/utils/snack-bar-helper.util';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {Role} from "../enums/role.enum";
 
 @Injectable({
   providedIn: 'root'
@@ -111,5 +112,13 @@ export class AuthenticationService implements CanLoad, CanActivate {
     } else {
       return hasAccess;
     }
+  }
+
+  public get isUser(): boolean {
+    return !!this.loggedInUser.roles.map(item => item.role).find(role => role === Role.USER);
+  }
+
+  public get isAdmin(): boolean {
+    return !!this.loggedInUser.roles.map(item => item.role).find(role => role === Role.ADMIN);
   }
 }

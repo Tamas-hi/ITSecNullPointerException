@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
       };
 
       this.authenticationService.login(user).subscribe(() => {
-        this.router.navigateByUrl('/home').then(
+        this.router.navigateByUrl('/caff-posts/search').then(
           () => SnackBarHelperUtil.showMessage(this.matSnackBar, MESSAGE_SUCCESSFUL_LOGIN));
       }, error => {
         console.error(error);

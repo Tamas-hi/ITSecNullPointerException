@@ -8,9 +8,14 @@ import {CaffFileUploadComponent} from './components/caff-file-upload/caff-file-u
 import {MatInputModule} from '@angular/material/input';
 import {ReactiveFormsModule} from '@angular/forms';
 import {FlexModule} from '@angular/flex-layout';
-import { CaffPostDetailsComponent } from './components/caff-post-details/caff-post-details.component';
+import {CaffPostDetailsComponent} from './components/caff-post-details/caff-post-details.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/caff-posts/search',
+    pathMatch: 'full'
+  },
   {
     path: 'search',
     component: CaffFileSearcherComponent
@@ -20,7 +25,12 @@ const routes: Routes = [
   }, {
     path: ':id',
     component: CaffPostDetailsComponent
-  }
+  },
+  {
+    path: '**',
+    redirectTo: '/caff-posts/search',
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({

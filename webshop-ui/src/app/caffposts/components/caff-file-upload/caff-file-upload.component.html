@@ -1,15 +1,20 @@
-<div class="title-container">
-  <mat-card>Caff File Upload</mat-card>
-  <form [formGroup]="caffPostForm" fxLayout="column">
-    <mat-form-field class="spacer">
-      <mat-label>Kép címe</mat-label>
-      <input matInput formControlName="title" required>
-    </mat-form-field>
+<div fxLayout="column" fxLayoutAlign="center center">
+  <mat-card class="content-card">
+    <mat-card-subtitle>A feltöltéshez válasszon ki egy képet és adja meg a címét!</mat-card-subtitle>
+    <form [formGroup]="caffPostForm" fxLayout="column">
+      <mat-form-field class="spacer">
+        <mat-label>Kép címe</mat-label>
+        <input matInput formControlName="title" required>
+      </mat-form-field>
 
-    <input type="file" multiple (change)="uploadFileInputChanged($event)">
-    <button mat-raised-button color="primary" class="spacer" (click)="uploadFile()"
-            [disabled]="isUploadButtonDisabled">Upload
-    </button>
-  </form>
+      <input type="file" multiple (change)="uploadFileInputChanged($event)">
+      <button mat-raised-button color="primary" class="spacer" (click)="uploadFile()"
+              [disabled]="isUploadButtonDisabled">Feltöltés
+        <span class="material-icons icon-button">
+        cloud_upload
+      </span>
+      </button>
+    </form>
+  </mat-card>
 </div>
 
