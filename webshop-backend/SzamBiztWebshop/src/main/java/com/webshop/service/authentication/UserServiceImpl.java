@@ -52,31 +52,7 @@ public class UserServiceImpl implements IUserService {
         this.httpServletResponse = httpServletResponse;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
-
-        this.createAdmin();
     }
-
-    private void createAdmin() {
-        List<User> allUsers = this.getAllUsers();
-
-        if (allUsers.size() == 0) {
-            String USER_ROLE = "ADMIN";
-            User user = new User();
-            user.setEmail("admin@admin.hu");
-            user.setName("ADMIN");
-            Role userRole = roleRepository.findByRole(USER_ROLE);
-            user.setPassword(bCryptPasswordEncoder.encode("123userPassword!200"));
-
-            if (userRole != null) {
-                user.getRoles().add(userRole);
-            } else {
-                user.addRoles(USER_ROLE);
-            }
-
-            userRepository.save(user);
-        }
-    }
-
 
     public User findByEmail(String email) {
         return userRepository.findFirstByEmail(email);
