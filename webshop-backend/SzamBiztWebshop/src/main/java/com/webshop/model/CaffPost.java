@@ -51,7 +51,17 @@ public class CaffPost {
         this.user = user;
     }
 
-    public long getId() {
+    public CaffPost(long id) {
+		this.id = id;
+	}
+
+	public CaffPost(long id, String title, String creatorName) {
+		this.id = id;
+		this.title = title;
+		this.creatorName = creatorName;
+	}
+
+	public long getId() {
         return id;
     }
 

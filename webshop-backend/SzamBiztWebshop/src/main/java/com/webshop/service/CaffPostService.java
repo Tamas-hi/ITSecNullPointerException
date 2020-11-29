@@ -6,6 +6,8 @@ import javax.transaction.Transactional;
 
 import com.webshop.model.CaffFile;
 import javassist.NotFoundException;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.webshop.model.CaffPost;
@@ -33,7 +35,7 @@ public class CaffPostService {
 
     @Transactional
     public void deleteCaffById(long id) throws NotFoundException {
-        CaffPost caffPost;
+    	CaffPost caffPost;
         if (caffPostRepository.findById(id).isPresent()) {
             caffPost = caffPostRepository.findById(id).get();
         } else {

@@ -1,0 +1,27 @@
+package com.webshop.tests;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
+
+import com.webshop.controller.CaffPostController;
+import com.webshop.service.CaffPostService;
+
+@WebMvcTest(controllers = CaffPostController.class)
+@ActiveProfiles("test")
+public class CaffPostControllerTest {
+	
+	@Autowired                           
+    private MockMvcc mockMvc;  
+                                                 
+    @MockBean                           
+    private CaffPostService caffPostService; 
+                                       
+                                            
+    @BeforeEach                           
+    void setUp() {                                                     
+ 
+    }
+}

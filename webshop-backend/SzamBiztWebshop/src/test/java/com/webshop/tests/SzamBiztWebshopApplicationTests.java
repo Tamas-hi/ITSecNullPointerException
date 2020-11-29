@@ -1,0 +1,123 @@
+package com.webshop.tests;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.BDDMockito.*;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+import com.webshop.SzamBiztWebshopApplication;
+import com.webshop.model.CaffPost;
+import com.webshop.model.Role;
+import com.webshop.model.User;
+import com.webshop.repository.CaffPostRepository;
+import com.webshop.repository.UserRepository;
+import com.webshop.service.CaffPostService;
+import com.webshop.service.authentication.UserServiceImpl;
+
+import javassist.NotFoundException;
+
+@SpringBootTest(classes = SzamBiztWebshopApplication.class)
+@RunWith(MockitoJUnitRunner.class)
+class SzamBiztWebshopApplicationTests {
+	
+	@Mock
+	CaffPostRepository caffPostRepository;
+	
+	@Mock
+	UserRepository userRepository;
+	
+	@InjectMocks
+	CaffPostService caffPostService;
+	
+	@InjectMocks
+	UserServiceImpl userServiceImpl;
+
+	@Before
+    public void Init() {
+    	MockitoAnnotations.initMocks(this);
+    }
+    
+    @Test
+    public void testGetPosts() {
+    	List<CaffPost> posts = new ArrayList<CaffPost>();
+    	posts.add(new CaffPost(1L, "content".getBytes(), "title", new Date(), new User()));
+    	posts.add(new CaffPost(2L, "content1".getBytes(), "title1", new Date(), new User()));
+    	posts.add(new CaffPost(3L, "content2".getBytes(), "title2", new Date(), new User()));
+    	
+    	when(caffPostRepository.findAll()).thenReturn(posts);
+    	List<CaffPost> newPosts = caffPostService.getPosts();
+    	assertEquals(newPosts, posts);
+    }
+    
+    @Test
+    public void testGetCaffById() {
+    	final long id = 1L;
+    	final CaffPost post = new CaffPost(1L, "content".getBytes(), "title", new Date(), new User());
+    	
+    	given(caffPostRepository.findCaffPostById(id)).willReturn(post);
+    	final CaffPost expected = caffPostService.findCaffById(id);
+    	assertThat(expected).isNotNull();
+    	
+    }
+    	
+    @Test
+    public void testDeletePost() {
+    	NotFoundException thrown = assertThrows(
+    	    	NotFoundException.class,
+    	          () -> caffPostService.deleteCaffById(1L),
+    	          "CaffPostException was thrown."
+    		);
+
+    	 assertTrue(thrown.getMessage().contains("CaffPost"));
+    }
+    
+    @Test
+    public void testUploadPost() {
+    	final CaffPost caffPost = new CaffPost(1L, "content".getBytes(), "title", new Date(), new User());
+    	given(caffPostRepository.save(caffPost)).willReturn(caffPost);
+    	caffPostService.uploadCaff(caffPost);
+    	verify(caffPostRepository).save(any(caffPost.getClass()));
+    }
+    
+    @Test
+    public void testGetCaffByTitle() {
+    	final String title = "title";
+    	final CaffPost post = new CaffPost(1L, "content".getBytes(), "title", new Date(), new User());
+    	List<CaffPost> titlePosts = new ArrayList<>();
+    	titlePosts.add(post);
+    	
+    	given(caffPostRepository.findByTitleContaining(title)).willReturn(titlePosts);
+    	final List<CaffPost> expected = caffPostService.findCaffByTitle(title);
+    	assertThat(expected).isNotNull();
+    }
+    
+    @Test
+    public void testGetUsers() {
+    	List<User> users = new ArrayList<User>();
+    	users.add(new User(1L, "email", "password", "username", new HashSet<Role>(), new ArrayList<CaffPost>()));
+    	users.add(new User(2L, "email1", "password1", "username1", new HashSet<Role>(), new ArrayList<CaffPost>()));
+    	users.add(new User(3L, "email2", "password2", "username2", new HashSet<Role>(), new ArrayList<CaffPost>()));
+    	
+    	when(userRepository.findAll()).thenReturn(users);
+    	List<User> newUsers = userServiceImpl.getAllUsers();
+    	assertEquals(newUsers, users);
+    }
+    
+
+}
