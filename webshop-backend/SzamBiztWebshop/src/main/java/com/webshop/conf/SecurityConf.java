@@ -18,49 +18,46 @@ import java.util.Collections;
 
 @EnableGlobalMethodSecurity(securedEnabled = true)
 @Configuration
-public class SecurityConf extends WebSecurityConfigurerAdapter{
+public class SecurityConf extends WebSecurityConfigurerAdapter {
 
-	@Bean("authenticationManager")
-	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
+    @Bean("authenticationManager")
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
-	@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-	
-	/*@Autowired
-	public void ConfigureAuth(AuthenticationManagerBuilder amb) throws Exception {
-		amb.inMemoryAuthentication().withUser("admin").password("{noop}admin").roles("ADMIN");
-	}*/
-	
-	@Override
-	protected void configure(HttpSecurity httpSec) throws Exception {
-		httpSec.csrf().disable()
-			.authorizeRequests()
-				.antMatchers("/api/getAll").hasAuthority("USER")
-				.antMatchers("/api/users").hasAuthority("USER")
-				.antMatchers("/api/search/**").hasAuthority("USER")
-				.antMatchers("/api/delete/**").hasAuthority("ADMIN")
-				.antMatchers(HttpMethod.GET,"/").permitAll()
-				.antMatchers(HttpMethod.POST, "/api/login").permitAll()
-				.antMatchers(HttpMethod.POST,"/api/register").permitAll()
-				.anyRequest().authenticated()
-				.and()
-				.cors().configurationSource(corsConfigurationSource());
-	}
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Bean
-	CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
-		configuration.setAllowedMethods(Collections.singletonList("*"));
-		configuration.setAllowedHeaders(Collections.singletonList("*"));
-		configuration.setAllowCredentials(true);
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", configuration);
-		return source;
-	}
+    @Override
+    protected void configure(HttpSecurity httpSec) throws Exception {
+        httpSec.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/api/caff-files/**").hasAuthority("USER")
+                .antMatchers("/api/caff-posts/upload").hasAuthority("USER")
+                .antMatchers("/api/caff-posts/upload-details").hasAuthority("USER")
+                .antMatchers(HttpMethod.POST, "/api/comments/**").hasAuthority("USER")
+                .antMatchers(HttpMethod.DELETE, "/api/**").hasAuthority("ADMIN")
+                .antMatchers("/api/users").hasAuthority("ADMIN")
+                .antMatchers("/").permitAll()
+                .antMatchers("/api/login").permitAll()
+                .antMatchers("/api/register").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .cors().configurationSource(corsConfigurationSource());
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+        configuration.setAllowedMethods(Collections.singletonList("*"));
+        configuration.setAllowedHeaders(Collections.singletonList("*"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 }

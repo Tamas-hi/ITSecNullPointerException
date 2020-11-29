@@ -17,4 +17,6 @@ export class CaffPost {
   public tags: string[];
 
   public comments: Comment[];
+
+  public creatorName: string;
 }

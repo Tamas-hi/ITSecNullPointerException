@@ -1,5 +1,7 @@
 package com.webshop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,9 +12,10 @@ public class CaffFile {
     private long id;
 
     @Lob
-    @Column(columnDefinition = "MEDIUMBLOB")
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] content;
 
+    @JsonIgnore
     @OneToOne
     private CaffPost caffPost;
 

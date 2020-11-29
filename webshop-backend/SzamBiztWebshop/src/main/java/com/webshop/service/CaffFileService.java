@@ -16,4 +16,16 @@ public class CaffFileService {
     public void saveCaffFile(CaffPost caffPost, byte[] byteArray) {
         this.caffFileRepository.save(new CaffFile(byteArray, caffPost));
     }
+
+    public CaffFile getCaffFileByCaffPostId(long caffPostId) {
+        return this.caffFileRepository.getCaffFileByCaffPostId(caffPostId);
+    }
+
+    public byte[] getCaffFileByteArrayByCaffPostId(long caffPostId) {
+        return this.caffFileRepository.getCaffFileByCaffPostId(caffPostId).getContent();
+    }
+
+    public void deleteCaffFile(CaffFile caffFile) {
+        this.caffFileRepository.delete(caffFile);
+    }
 }

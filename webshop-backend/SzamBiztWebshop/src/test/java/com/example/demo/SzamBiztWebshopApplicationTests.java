@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import javassist.NotFoundException;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -73,7 +74,7 @@ class SzamBiztWebshopApplicationTests {
     }
     
     @Test
-    public void testDeletePost() {
+    public void testDeletePost() throws NotFoundException {
     	final long caffPostId = 1L;
     	caffPostService.deleteCaffById(caffPostId);
     	caffPostService.deleteCaffById(caffPostId);

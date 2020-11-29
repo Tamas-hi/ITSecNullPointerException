@@ -1,19 +1,28 @@
-<div align="center">
-  <mat-form-field>
-    <input matInput type="text" placeholder="Search..." #searchText>
+<div fxLayout="row" fxLayoutAlign="center center">
+  <mat-form-field class="search-field">
+    <input matInput type="text" placeholder="Keresés..." #searchText>
   </mat-form-field>
-  <a mat-raised-button color="primary" (click)="searchByString(searchText.value)">Search</a>
+  <a mat-raised-button color="primary" (click)="searchByString(searchText.value)">Keresés
+    <span class="material-icons icon-button">
+      search
+    </span>
+  </a>
 </div>
 
 <mat-card class="example-card" *ngFor="let image of caffPosts">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>{{ image.title }}</mat-card-title>
-    <mat-card-subtitle>user.name</mat-card-subtitle>
+    <mat-card-subtitle>Készítette: {{ image.creatorName }}</mat-card-subtitle>
+    <mat-card-subtitle>Feltöltötte: {{ image.user.name }}</mat-card-subtitle>
   </mat-card-header>
   <img mat-card-image [src]="image.content" alt="imageFromByteArray">
   <mat-card-actions>
-    <button mat-button (click)="download(image.id)">Download</button>
-    <button mat-button (click)="comments(image.id)">Comments</button>
+    <button *ngIf="isUser === true" mat-button color="primary" (click)="download(image.id, image.title)">Letöltés
+    </button>
+    <button *ngIf="isAdmin === true" mat-button color="primary" (click)="delete(image.id)">Törlés
+    </button>
+    <button mat-button color="primary" (click)="showComments(image.id)">Részletek és kommentek
+    </button>
   </mat-card-actions>
 </mat-card>

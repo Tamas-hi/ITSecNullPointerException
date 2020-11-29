@@ -90,7 +90,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public ResponseEntity<Boolean> register(User user) {
-        String USER_ROLE = "USER";
+        String USER_ROLE = "ADMIN";
         Role userRole = roleRepository.findByRole(USER_ROLE);
 
         if (userRole != null) {

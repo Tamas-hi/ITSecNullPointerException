@@ -27,6 +27,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 403) {
+          this.router.navigate(['/auth/login']);
           SnackBarHelperUtil.showMessage(this.matSnackBar, MESSAGE_NOT_ALLOWED, true);
         }
         return throwError(error);
