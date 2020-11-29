@@ -2,6 +2,8 @@ package com.webshop.tests;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.BDDMockito.*;
@@ -11,7 +13,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
-import javassist.NotFoundException;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +29,8 @@ import com.webshop.repository.CaffPostRepository;
 import com.webshop.repository.UserRepository;
 import com.webshop.service.CaffPostService;
 import com.webshop.service.authentication.UserServiceImpl;
+
+import javassist.NotFoundException;
 
 @SpringBootTest(classes = SzamBiztWebshopApplication.class)
 @RunWith(MockitoJUnitRunner.class)
@@ -72,14 +75,16 @@ class SzamBiztWebshopApplicationTests {
     	assertThat(expected).isNotNull();
     	
     }
-    
-    @Test
-    public void testDeletePost() throws NotFoundException {
-    	final long caffPostId = 1L;
-    	caffPostService.deleteCaffById(caffPostId);
-    	caffPostService.deleteCaffById(caffPostId);
     	
-    	verify(caffPostRepository, times(2)).deleteCaffPostById(caffPostId);
+    @Test
+    public void testDeletePost() {
+    	NotFoundException thrown = assertThrows(
+    	    	NotFoundException.class,
+    	          () -> caffPostService.deleteCaffById(1L),
+    	          "CaffPostException was thrown."
+    		);
+
+    	 assertTrue(thrown.getMessage().contains("CaffPost"));
     }
     
     @Test
